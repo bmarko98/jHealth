@@ -11,6 +11,7 @@ import com.group7.jhealth.SHARED_PREF_FILE
 import com.group7.jhealth.fragments.FunctionalityFragment
 import com.group7.jhealth.fragments.PersonalInfoFragment
 
+
 class MainActivity : AppCompatActivity() {
     private val fragmentManager: FragmentManager = supportFragmentManager
     private lateinit var preferences: SharedPreferences
