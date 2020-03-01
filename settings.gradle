@@ -1,0 +1,2 @@
+rootProject.name='jHealth'
+include ':app'
