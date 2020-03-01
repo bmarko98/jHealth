@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">jHealth</string>
+
+    <!--FunctionalityFragment-->
+    <string name="diet_monitoring">Diet monitoring</string>
+    <string name="sleep_tracking">Sleep tracking</string>
+    <string name="water_reminder">Water intake tracking and reminder</string>
+    <string name="workout_plan">Workout plan</string>
+
+    <!--PersonalInfoFragment-->
+    <string name="name">What is your name</string>
+    <string name="age">How old are you?</string>
+    <string name="gender">What is your gender?</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>
