@@ -1,7 +1,8 @@
-package com.group7.jhealth
+package com.group7.jhealth.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.group7.jhealth.R
 
 class MainActivity : AppCompatActivity() {
 
