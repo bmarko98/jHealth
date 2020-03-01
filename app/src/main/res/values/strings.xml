@@ -13,4 +13,6 @@
     <string name="gender">What is your gender?</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="OK">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>
