@@ -33,7 +33,11 @@
     <string name="professional_6_workouts_per_week">Professional (6+ workouts per week)</string>
     <string name="start_working_out">Start Working Out</string>
 
-    <!--WorkoutPlan-->
+    <!--WaterTracker-->
     <string name="water_tracker">Water Tracker</string>
+    <!--WaterTracker Menu-->
+    <string name="drink_log">Drink log</string>
+    <string name="drink_report">Drink report</string>
+    <string name="settings">Settings</string>
 
 </resources>

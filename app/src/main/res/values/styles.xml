@@ -12,4 +12,8 @@
     <!-- https://developer.android.com/guide/topics/ui/look-and-feel/darktheme -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight" />
 
+    <style name="WaterIntakeTheme" parent="Theme.AppCompat.DayNight" >
+        <item name="colorAccent">@color/lightBlue</item>
+    </style>
+
 </resources>
