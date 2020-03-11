@@ -32,4 +32,8 @@
     <string name="medium_4_6_workouts_per_week">Medium (4-6 workouts per week)</string>
     <string name="professional_6_workouts_per_week">Professional (6+ workouts per week)</string>
     <string name="start_working_out">Start Working Out</string>
+
+    <!--WorkoutPlan-->
+    <string name="water_tracker">Water Tracker</string>
+
 </resources>
