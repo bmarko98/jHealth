@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.group7.jhealth.R
 import com.group7.jhealth.activities.DietMonitoring
+import com.group7.jhealth.activities.SleepMonitoring
 import com.group7.jhealth.activities.WaterTrackerActivity
 import com.group7.jhealth.activities.WorkoutPlan
 import kotlinx.android.synthetic.main.fragment_functionality.*
@@ -34,6 +35,9 @@ class FunctionalityFragment() : Fragment() {
 
         waterTrackerButton.setOnClickListener {
             startActivity(Intent(context, WaterTrackerActivity::class.java))
+        }
+        sleepTrackerButton.setOnClickListener {
+            startActivity(Intent(context, SleepMonitoring::class.java))
         }
     }
 }
