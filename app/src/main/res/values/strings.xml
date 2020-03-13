@@ -35,6 +35,7 @@
 
     <!--WaterTracker-->
     <string name="water_tracker">Water Tracker</string>
+    <string name="drink_target">Drink target:</string>
     <!--WaterTracker Menu-->
     <string name="drink_log">Drink log</string>
     <string name="drink_report">Drink report</string>
