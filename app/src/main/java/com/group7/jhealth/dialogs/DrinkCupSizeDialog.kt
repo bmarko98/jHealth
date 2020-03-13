@@ -5,9 +5,11 @@ import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.NumberPicker
 import androidx.core.view.isGone
 import androidx.fragment.app.DialogFragment
@@ -20,26 +22,39 @@ class DrinkCupSizeDialog() : DialogFragment() {
     private lateinit var customCupSizeEditText: EditText
     private var chosenSize: Int = 0
     private var isCustom = false
+    private lateinit var dialogView: View
+    private lateinit var cupIconImageView: ImageView
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
 
             val builder = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater
-            val dialogView: View = inflater.inflate(R.layout.dialog_drink_cup_size, null)
+            dialogView = inflater.inflate(R.layout.dialog_drink_cup_size, null)
 
             this.cupSizeNumberPicker = dialogView.findViewById(R.id.cupSizeNumberPicker)
             this.customSizeButton = dialogView.findViewById(R.id.customSizeButton)
             this.customCupSizeEditText = dialogView.findViewById(R.id.customCupSizeEditText)
+            this.cupIconImageView = dialogView.findViewById(R.id.cupIconImageView)
 
-            val pickerValues = arrayOf("100", "150", "200", "250", "300", "350", "400", "450", "500", "550", "600", "650", "700", "750", "800")
+            val pickerValues =
+                arrayOf("50", "100", "150", "200", "250", "300", "350", "400", "450", "500", "550", "600", "650", "700", "750", "800", "1000", "1500")
 
             cupSizeNumberPicker.maxValue = pickerValues.size - 1
             cupSizeNumberPicker.minValue = 0
             cupSizeNumberPicker.displayedValues = pickerValues
+            cupSizeNumberPicker.value=pickerValues.indexOf("250")
 
             cupSizeNumberPicker.setOnValueChangedListener { picker, oldVal, newVal ->
                 chosenSize = pickerValues[newVal].toInt()
+
+                when (chosenSize) {
+                    50, 100, 150 -> cupIconImageView.setImageResource(R.drawable.tea_cup_icon)
+                    200, 250, 300 -> cupIconImageView.setImageResource(R.drawable.water_glass_icon)
+                    350, 400, 450 -> cupIconImageView.setImageResource(R.drawable.small_water_bottle_icon)
+                    500, 550, 600 -> cupIconImageView.setImageResource(R.drawable.water_bottle_icon)
+                    else -> cupIconImageView.setImageResource(R.drawable.large_water_bottle_icon)
+                }
             }
 
             customCupSizeEditText.isGone = true

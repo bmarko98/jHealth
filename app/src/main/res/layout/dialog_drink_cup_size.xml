@@ -6,23 +6,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <NumberPicker
-        android:id="@+id/cupSizeNumberPicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/cupIconImageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        app:layout_constraintBottom_toTopOf="@+id/customSizeButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cupSizeNumberPicker"
+        app:layout_constraintEnd_toStartOf="@+id/cupSizeNumberPicker"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/cupSizeNumberPicker"
+
+        app:layout_constraintVertical_bias="0.2"
+        app:srcCompat="@drawable/water_glass_icon" />
 
     <Button
         android:id="@+id/customSizeButton"
@@ -31,16 +30,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:background="?android:attr/selectableItemBackground"
         android:text="@string/custom"
         android:textColor="@color/lightBlue"
-        app:layout_constraintBottom_toTopOf="@+id/customCupSizeEditText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="@+id/cupSizeNumberPicker"
+        app:layout_constraintEnd_toStartOf="@+id/cupSizeNumberPicker"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cupSizeNumberPicker" />
+        app:layout_constraintTop_toBottomOf="@+id/cupIconImageView" />
 
     <EditText
         android:id="@+id/customCupSizeEditText"
@@ -48,7 +45,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
@@ -59,5 +55,20 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customSizeButton" />
+
+    <NumberPicker
+        android:id="@+id/cupSizeNumberPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:layout_constraintBottom_toTopOf="@+id/customCupSizeEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cupIconImageView"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
