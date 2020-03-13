@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -15,7 +14,7 @@ import androidx.core.view.isGone
 import androidx.fragment.app.DialogFragment
 import com.group7.jhealth.R
 
-class DrinkCupSizeDialog() : DialogFragment() {
+class DrinkCupSizeDialog : DialogFragment() {
     private lateinit var listener: DrinkCupSizeDialogListener
     private lateinit var cupSizeNumberPicker: NumberPicker
     private lateinit var customSizeButton: Button
@@ -43,7 +42,7 @@ class DrinkCupSizeDialog() : DialogFragment() {
             cupSizeNumberPicker.maxValue = pickerValues.size - 1
             cupSizeNumberPicker.minValue = 0
             cupSizeNumberPicker.displayedValues = pickerValues
-            cupSizeNumberPicker.value=pickerValues.indexOf("250")
+            cupSizeNumberPicker.value = pickerValues.indexOf("250")
 
             cupSizeNumberPicker.setOnValueChangedListener { picker, oldVal, newVal ->
                 chosenSize = pickerValues[newVal].toInt()
@@ -62,6 +61,7 @@ class DrinkCupSizeDialog() : DialogFragment() {
             customSizeButton.setOnClickListener {
                 cupSizeNumberPicker.isGone = true
                 customSizeButton.isGone = true
+                cupIconImageView.isGone = true
                 customCupSizeEditText.isGone = false
                 isCustom = true
             }
