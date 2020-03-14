@@ -22,7 +22,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/intakeHistory"
+        android:id="@+id/waterIntakeHistoryRecylerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
