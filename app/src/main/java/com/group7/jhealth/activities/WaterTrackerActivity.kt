@@ -8,14 +8,24 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.group7.jhealth.R
 import com.group7.jhealth.*
+import com.group7.jhealth.adapters.WaterIntakeHistoryRecyclerViewAdapter
 import com.group7.jhealth.dialogs.DrinkCupSizeDialog
 import kotlinx.android.synthetic.main.activity_water_intake.*
+import java.util.*
 
-class WaterTrackerActivity : AppCompatActivity(), DrinkCupSizeDialog.DrinkCupSizeDialogListener {
+interface OnIntakeLongClickListener {
+    fun onLongClick(intake: WaterIntake)
+}
+
+class WaterTrackerActivity : AppCompatActivity(), DrinkCupSizeDialog.DrinkCupSizeDialogListener, OnIntakeLongClickListener {
 
     private val fragmentManager: FragmentManager = supportFragmentManager
+    private lateinit var waterIntakeHistoryRecyclerViewAdapter: WaterIntakeHistoryRecyclerViewAdapter
+    private lateinit var intakeHistory: MutableList<WaterIntake>
+    private lateinit var layoutManager: GridLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +36,20 @@ class WaterTrackerActivity : AppCompatActivity(), DrinkCupSizeDialog.DrinkCupSiz
 
         waterIntakeTargetBar.scaleY = WATER_INTAKE_TARGET_BAR_HEIGHT
 
+        intakeHistory = mutableListOf()
+        layoutManager = GridLayoutManager(this, 4)
+        waterIntakeHistoryRecyclerView.layoutManager = layoutManager
+        waterIntakeHistoryRecyclerViewAdapter = WaterIntakeHistoryRecyclerViewAdapter(this)
+        waterIntakeHistoryRecyclerView.adapter = waterIntakeHistoryRecyclerViewAdapter
+
         addDrinkingCupButton.setOnClickListener {
             val newFragment = DrinkCupSizeDialog()
             newFragment.show(fragmentManager, "")
+        }
+
+        addIntakeButton.setOnClickListener {
+            intakeHistory.add(WaterIntake(250, Calendar.getInstance().getTime(), R.drawable.custom_cup_icon))
+            waterIntakeHistoryRecyclerViewAdapter.updateData(intakeHistory)
         }
     }
 
@@ -48,5 +69,10 @@ class WaterTrackerActivity : AppCompatActivity(), DrinkCupSizeDialog.DrinkCupSiz
 
     override fun drinkCupSizeDialogListener(chosenSize: Int) {
         Log.e("chosen cup size", chosenSize.toString())
+    }
+
+    override fun onLongClick(intake: WaterIntake) {
+        Log.e("long clicked", intake.intakeAmount.toString() + intake.time)
+        //Display edit dialog. Maybe give user option to remove an item. IDK
     }
 }
