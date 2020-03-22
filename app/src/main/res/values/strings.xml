@@ -5,6 +5,11 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
+    <!--DietMonitoring-->
+    <string name="weight_progress">Weight Progress</string>
+    <string name="calorie_counter">Calorie Counter</string>
+    <string name="healthy_recipes">Healthy Recipes</string>
+
     <!--FunctionalityFragment-->
     <string name="diet_monitoring">Diet monitoring</string>
     <string name="sleep_tracking">Sleep tracking</string>
