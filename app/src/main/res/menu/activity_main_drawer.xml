@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@android:drawable/btn_star_big_on"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_diet_monitoring"
+            android:icon="@drawable/food1"
+            android:title="@string/menu_diet_monitoring" />
+        <item
+            android:id="@+id/nav_sleep_monitoring"
+            android:icon="@android:drawable/btn_star_big_on"
+            android:title="@string/menu_sleep_monitoring" />
+
+        <item
+            android:id="@+id/nav_water_tracker"
+            android:icon="@drawable/large_water_bottle_icon"
+            android:title="@string/menu_water_tracker" />
+
+        <item
+            android:id="@+id/nav_workout_plan"
+            android:icon="@android:drawable/btn_star_big_on"
+            android:title="@string/workout_plan" />
+
+    </group>
+</menu>

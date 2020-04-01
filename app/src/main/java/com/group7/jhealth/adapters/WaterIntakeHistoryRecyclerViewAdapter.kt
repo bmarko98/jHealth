@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.group7.jhealth.R
 import com.group7.jhealth.SIMPLE_DATE_FORMAT_TIME_PATTERN
 import com.group7.jhealth.WaterIntake
-import com.group7.jhealth.activities.OnIntakeLongClickListener
+import com.group7.jhealth.fragments.OnIntakeLongClickListener
 import kotlinx.android.synthetic.main.recyler_view_layout_water_intake_history.view.*
 import java.text.SimpleDateFormat
 

@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.group7.jhealth.R
 
-class PersonalInfoFragment() : Fragment() {
+class HomeFragment : Fragment() {
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_personal_info, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 }
