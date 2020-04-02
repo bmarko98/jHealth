@@ -23,7 +23,7 @@ class WaterTrackerFragment : Fragment() {
     private lateinit var waterIntakeHistoryRecyclerViewAdapter: WaterIntakeHistoryRecyclerViewAdapter
     private lateinit var intakeHistory: MutableList<WaterIntake>
     private lateinit var layoutManager: GridLayoutManager
-    private lateinit var listener: DialogListener
+    //private lateinit var listener: DialogListener
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +47,7 @@ class WaterTrackerFragment : Fragment() {
         //TODO: Use interface and implement it in the activity.
         addDrinkingCupButton.setOnClickListener {
 
-            listener.dialogListener()
+            //listener.dialogListener()
         }
 
         addIntakeButton.setOnClickListener {
@@ -55,7 +55,7 @@ class WaterTrackerFragment : Fragment() {
             waterIntakeHistoryRecyclerViewAdapter.updateData(intakeHistory)
         }
     }
-
+/*
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -68,5 +68,5 @@ class WaterTrackerFragment : Fragment() {
 
     interface DialogListener {
         fun dialogListener()
-    }
+    }*/
 }
