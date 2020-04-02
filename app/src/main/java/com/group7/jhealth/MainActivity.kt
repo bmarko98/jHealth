@@ -2,20 +2,28 @@ package com.group7.jhealth
 
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.navigation.NavigationView
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import io.realm.Realm
+import com.google.android.material.navigation.NavigationView
+import com.group7.jhealth.fragments.HomeFragment
+import com.group7.jhealth.fragments.SleepMonitoringFragment
+import com.group7.jhealth.fragments.WaterTrackerFragment
+import com.group7.jhealth.fragments.WorkoutPlanFragment
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private val fragmentManager: FragmentManager = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +42,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_diet_monitoring,
                 R.id.nav_sleep_monitoring,
                 R.id.nav_water_tracker,
-                R.id.nav_workout_plan), drawerLayout)
+                R.id.nav_workout_plan
+            ), drawerLayout
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
@@ -48,5 +58,19 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onClickListener(clickedItemId: Int) {
+
+        when (clickedItemId) {
+            R.id.dietMonitoringTextView ->
+                findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_navigate_to_diet_monitoring_fragment)
+            R.id.sleepMonitoringTextView ->
+                findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment)
+            R.id.waterTrackerTextView ->
+                findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_navigate_to_water_tracker_fragment)
+            R.id.workoutPlanTextView ->
+                findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_navigate_to_workout_plan_fragment)
+        }
     }
 }

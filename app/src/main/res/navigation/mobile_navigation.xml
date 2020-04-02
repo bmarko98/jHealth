@@ -9,7 +9,7 @@
         android:id="@+id/nav_home"
         android:name="com.group7.jhealth.fragments.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_diet_monitoring"
@@ -27,11 +27,27 @@
         android:id="@+id/nav_water_tracker"
         android:name="com.group7.jhealth.fragments.WaterTrackerFragment"
         android:label="@string/menu_water_tracker"
-        tools:layout="@layout/fragment_water_intake"/>
+        tools:layout="@layout/fragment_water_intake" />
 
     <fragment
         android:id="@+id/nav_workout_plan"
         android:name="com.group7.jhealth.fragments.WorkoutPlanFragment"
         android:label="@string/workout_plan"
-        tools:layout="@layout/fragment_workout_plan"/>
+        tools:layout="@layout/fragment_workout_plan" />
+
+    <action
+        android:id="@+id/action_global_navigate_to_diet_monitoring_fragment"
+        app:destination="@id/nav_diet_monitoring" />
+
+    <action
+        android:id="@+id/action_global_navigate_to_sleep_monitoring_fragment"
+        app:destination="@id/nav_sleep_monitoring" />
+
+    <action
+        android:id="@+id/action_global_navigate_to_water_tracker_fragment"
+        app:destination="@id/nav_water_tracker" />
+
+    <action
+        android:id="@+id/action_global_navigate_to_workout_plan_fragment"
+        app:destination="@id/nav_workout_plan" />
 </navigation>
