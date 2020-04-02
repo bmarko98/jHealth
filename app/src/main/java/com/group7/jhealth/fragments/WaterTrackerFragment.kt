@@ -51,8 +51,8 @@ class WaterTrackerFragment : Fragment() {
         }
 
         addIntakeButton.setOnClickListener {
-            intakeHistory.add(WaterIntake(250, Calendar.getInstance().time, R.drawable.custom_cup_icon))
-            waterIntakeHistoryRecyclerViewAdapter.updateData(intakeHistory)
+            //intakeHistory.add(WaterIntake(250, Calendar.getInstance().time, R.drawable.custom_cup_icon))
+            //waterIntakeHistoryRecyclerViewAdapter.updateData(intakeHistory)
         }
     }
 /*
