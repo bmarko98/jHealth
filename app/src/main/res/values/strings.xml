@@ -36,6 +36,8 @@
     <string name="OK">OK</string>
     <string name="weight">Weight:</string>
     <string name="sleep_time">Wake up and sleep time:</string>
+    <string name="welcome">Welcome</string>
+    <string name="skip">Skip</string>
 
     <!--WorkoutPlan-->
     <string name="select_workout_plan">Select Workout Plan</string>

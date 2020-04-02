@@ -39,7 +39,6 @@
         android:id="@+id/ageEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:ems="10"
         android:inputType="number" />
 
@@ -60,13 +59,13 @@
         android:layout_marginLeft="8dp">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/femaleRadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/female" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/maleRadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/male" />
@@ -94,22 +93,47 @@
         android:layout_marginBottom="4dp"
         android:text="@string/sleep_time" />
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/wakeUpTimeEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="time" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/sleepTimeEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="time" />
 
-    <Button
-        android:id="@+id/OKButton"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/OK" />
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/skipButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/skip"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/oKButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/oKButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:text="@string/OK"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/skipButton"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>

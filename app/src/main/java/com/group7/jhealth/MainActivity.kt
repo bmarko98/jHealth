@@ -13,6 +13,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.group7.jhealth.fragments.HomeFragment
+import io.realm.Realm
+import io.realm.RealmConfiguration
 
 class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener {
 
@@ -24,7 +26,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener {
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        fragmentManager = supportFragmentManager
+
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -41,6 +43,11 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        //File(this.filesDir.path).deleteRecursively()
+        Realm.init(this)
+        val config = RealmConfiguration.Builder().name(REALM_CONFIG_FILE_NAME).build()
+        Realm.setDefaultConfiguration(config)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

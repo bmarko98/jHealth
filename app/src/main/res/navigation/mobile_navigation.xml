@@ -35,6 +35,12 @@
         android:label="@string/workout_plan"
         tools:layout="@layout/fragment_workout_plan" />
 
+    <fragment
+        android:id="@+id/nav_login_form"
+        android:name="com.group7.jhealth.fragments.LoginFormFragment"
+        android:label="@string/welcome"
+        tools:layout="@layout/fragment_login_form" />
+
     <action
         android:id="@+id/action_global_navigate_to_diet_monitoring_fragment"
         app:destination="@id/nav_diet_monitoring" />
