@@ -2,8 +2,6 @@ package com.group7.jhealth
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -15,15 +13,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.group7.jhealth.fragments.HomeFragment
-import com.group7.jhealth.fragments.SleepMonitoringFragment
-import com.group7.jhealth.fragments.WaterTrackerFragment
-import com.group7.jhealth.fragments.WorkoutPlanFragment
-
 
 class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private val fragmentManager: FragmentManager = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,16 +54,17 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener {
     }
 
     override fun onClickListener(clickedItemId: Int) {
+        val navController = findNavController(R.id.nav_host_fragment)
 
         when (clickedItemId) {
             R.id.dietMonitoringTextView ->
-                findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_navigate_to_diet_monitoring_fragment)
+                navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment)
             R.id.sleepMonitoringTextView ->
-                findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment)
+                navController.navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment)
             R.id.waterTrackerTextView ->
-                findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_navigate_to_water_tracker_fragment)
+                navController.navigate(R.id.action_global_navigate_to_water_tracker_fragment)
             R.id.workoutPlanTextView ->
-                findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_navigate_to_workout_plan_fragment)
+                navController.navigate(R.id.action_global_navigate_to_workout_plan_fragment)
         }
     }
 }
