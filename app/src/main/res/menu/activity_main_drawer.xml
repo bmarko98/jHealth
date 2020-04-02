@@ -26,6 +26,5 @@
             android:id="@+id/nav_workout_plan"
             android:icon="@android:drawable/btn_star_big_on"
             android:title="@string/workout_plan" />
-
     </group>
 </menu>

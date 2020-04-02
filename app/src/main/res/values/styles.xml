@@ -1,9 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight" />
-
-    <style name="WaterIntakeTheme" parent="Theme.AppCompat.DayNight" >
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight" >
         <item name="colorAccent">@color/lightBlue</item>
     </style>
 
@@ -11,6 +9,5 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
 
 </resources>
