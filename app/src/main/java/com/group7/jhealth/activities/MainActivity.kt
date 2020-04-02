@@ -22,19 +22,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         preferences = this.getSharedPreferences(SHARED_PREF_FILE, AppCompatActivity.MODE_PRIVATE)
-        //shared preferences is used to store isFirstLaunch boolean value.
-        //https://developer.android.com/reference/android/content/SharedPreferences
 
         if (getSharedPreferences(SHARED_PREF_FILE, Context.MODE_PRIVATE).getBoolean(KEY_PREF_IS_FIRST_LAUNCH, true)) {
-            //if the user launches this app for the first time, PersonalInfoFragment will be launched where user can enter his/her personal data
-            //those data will be stored in the database and user can update it from the settings. To be implemented later.
             preferencesEditor = preferences.edit()
             preferencesEditor.putBoolean(KEY_PREF_IS_FIRST_LAUNCH, false)
             preferencesEditor.apply()
             fragmentManager.beginTransaction().add(R.id.fragmentHolder, PersonalInfoFragment()).addToBackStack("").commit()
-            //https://developer.android.com/guide/components/fragments
         } else {
-            //if it is not the first time, FunctionalityFragment will be launched where user can choose a functionality
             fragmentManager.beginTransaction().add(R.id.fragmentHolder, FunctionalityFragment()).addToBackStack("").commit()
         }
     }
