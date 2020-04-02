@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="ContentDescription"
-    tools:context=".activities.DietMonitoring">
+    tools:context=".fragments.DietMonitoringFragment"
+    tools:ignore="ContentDescription">
 
 
     <Button
@@ -16,6 +16,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
+        android:background="@drawable/button_ripple_effect"
         android:text="@string/weight_progress"
         app:layout_constraintBottom_toTopOf="@+id/healthyRecipesButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,6 +33,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
+        android:background="@drawable/button_ripple_effect"
         android:text="@string/calorie_counter"
         app:layout_constraintBottom_toTopOf="@+id/weightProgressButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,6 +50,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
+        android:background="@drawable/button_ripple_effect"
         android:text="@string/healthy_recipes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,8 +64,8 @@
         android:layout_width="393dp"
         android:layout_height="250dp"
         app:srcCompat="@drawable/food1"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="9dp"
-        tools:layout_editor_absoluteY="16dp"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
