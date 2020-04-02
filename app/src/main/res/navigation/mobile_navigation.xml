@@ -50,4 +50,5 @@
     <action
         android:id="@+id/action_global_navigate_to_workout_plan_fragment"
         app:destination="@id/nav_workout_plan" />
+
 </navigation>

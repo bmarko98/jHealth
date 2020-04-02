@@ -81,17 +81,17 @@ class DrinkCupSizeDialog : DialogFragment() {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+        override fun onAttach(context: Context) {
+            super.onAttach(context)
 
-        try {
-            listener = context as DrinkCupSizeDialogListener
-        } catch (err: ClassCastException) {
-            throw ClassCastException((context.toString() + " must implement DrinkCupSizeDialogListener"))
+            try {
+                listener = context as DrinkCupSizeDialogListener
+            } catch (err: ClassCastException) {
+                throw ClassCastException((context.toString() + " must implement DrinkCupSizeDialogListener"))
+            }
         }
-    }
 
-    interface DrinkCupSizeDialogListener {
-        fun drinkCupSizeDialogListener(chosenSize: Int)
-    }
+        interface DrinkCupSizeDialogListener {
+            fun drinkCupSizeDialogListener(chosenSize: Int)
+        }
 }
