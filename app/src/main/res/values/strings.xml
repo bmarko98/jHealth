@@ -34,6 +34,8 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="OK">OK</string>
+    <string name="weight">Weight:</string>
+    <string name="sleep_time">Wake up and sleep time:</string>
 
     <!--WorkoutPlan-->
     <string name="select_workout_plan">Select Workout Plan</string>

@@ -1,5 +1,6 @@
 package com.group7.jhealth.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -17,12 +18,12 @@ interface OnIntakeLongClickListener {
     fun onLongClick(intake: WaterIntake)
 }
 
-class WaterTrackerFragment : Fragment(), DrinkCupSizeDialog.DrinkCupSizeDialogListener, OnIntakeLongClickListener {
+class WaterTrackerFragment : Fragment() {
 
-    //private val fragmentManager: FragmentManager = supportFragmentManager
     private lateinit var waterIntakeHistoryRecyclerViewAdapter: WaterIntakeHistoryRecyclerViewAdapter
     private lateinit var intakeHistory: MutableList<WaterIntake>
     private lateinit var layoutManager: GridLayoutManager
+    private lateinit var listener: DialogListener
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,8 +46,8 @@ class WaterTrackerFragment : Fragment(), DrinkCupSizeDialog.DrinkCupSizeDialogLi
 
         //TODO: Use interface and implement it in the activity.
         addDrinkingCupButton.setOnClickListener {
-            //val newFragment = DrinkCupSizeDialog()
-            //newFragment.show(fragmentManager, "")
+
+            listener.dialogListener()
         }
 
         addIntakeButton.setOnClickListener {
@@ -55,27 +56,17 @@ class WaterTrackerFragment : Fragment(), DrinkCupSizeDialog.DrinkCupSizeDialogLi
         }
     }
 
-/*
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.water_tracker_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.drinkLog -> Log.e("menu", "drink log") //water intake history
-            R.id.drinkReport -> Log.e("menu", "drink report")   //graphs and averages and stuff like that
-            R.id.waterTrackerSettings -> Log.e("menu", "settings")  //edit personal info regarding water reminder, notification and alarm settings
+        try {
+            listener = context as DialogListener
+        } catch (err: ClassCastException) {
+            throw ClassCastException((context.toString() + " must implement DrinkCupSizeDialogListener"))
         }
-        return super.onOptionsItemSelected(item)
-    }
-*/
-    override fun drinkCupSizeDialogListener(chosenSize: Int) {
-        Log.e("chosen cup size", chosenSize.toString())
     }
 
-    override fun onLongClick(intake: WaterIntake) {
-        Log.e("long clicked", intake.intakeAmount.toString() + intake.time)
+    interface DialogListener {
+        fun dialogListener()
     }
-
 }
