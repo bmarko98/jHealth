@@ -10,59 +10,61 @@
         android:name="com.group7.jhealth.fragments.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
+    <action
+        android:id="@+id/action_global_navigate_to_home_fragment"
+        app:destination="@id/nav_home" />
 
     <fragment
         android:id="@+id/nav_diet_monitoring"
         android:name="com.group7.jhealth.fragments.DietMonitoringFragment"
         android:label="@string/menu_diet_monitoring"
         tools:layout="@layout/fragment_diet_monitoring" />
+    <action
+        android:id="@+id/action_global_navigate_to_diet_monitoring_fragment"
+        app:destination="@id/nav_diet_monitoring" />
 
     <fragment
         android:id="@+id/nav_sleep_monitoring"
         android:name="com.group7.jhealth.fragments.SleepMonitoringFragment"
         android:label="@string/menu_sleep_monitoring"
         tools:layout="@layout/fragment_sleep_monitoring" />
+    <action
+        android:id="@+id/action_global_navigate_to_sleep_monitoring_fragment"
+        app:destination="@id/nav_sleep_monitoring" />
 
     <fragment
         android:id="@+id/nav_water_tracker"
         android:name="com.group7.jhealth.fragments.WaterTrackerFragment"
         android:label="@string/menu_water_tracker"
         tools:layout="@layout/fragment_water_intake" />
+    <action
+        android:id="@+id/action_global_navigate_to_water_tracker_fragment"
+        app:destination="@id/nav_water_tracker" />
 
     <fragment
         android:id="@+id/nav_workout_plan"
         android:name="com.group7.jhealth.fragments.WorkoutPlanFragment"
         android:label="@string/workout_plan"
         tools:layout="@layout/fragment_workout_plan" />
+    <action
+        android:id="@+id/action_global_navigate_to_workout_plan_fragment"
+        app:destination="@id/nav_workout_plan" />
 
     <fragment
         android:id="@+id/nav_login_form"
         android:name="com.group7.jhealth.fragments.LoginFormFragment"
         android:label="@string/welcome"
         tools:layout="@layout/fragment_login_form" />
-
-    <action
-        android:id="@+id/action_global_navigate_to_diet_monitoring_fragment"
-        app:destination="@id/nav_diet_monitoring" />
-
-    <action
-        android:id="@+id/action_global_navigate_to_sleep_monitoring_fragment"
-        app:destination="@id/nav_sleep_monitoring" />
-
-    <action
-        android:id="@+id/action_global_navigate_to_water_tracker_fragment"
-        app:destination="@id/nav_water_tracker" />
-
-    <action
-        android:id="@+id/action_global_navigate_to_workout_plan_fragment"
-        app:destination="@id/nav_workout_plan" />
-
-    <action
-        android:id="@+id/action_global_navigate_to_home_fragment"
-        app:destination="@id/nav_home" />
-
     <action
         android:id="@+id/action_global_navigate_to_login_form_fragment"
         app:destination="@id/nav_login_form" />
+
+    <fragment
+        android:id="@+id/nav_preferences"
+        android:name="com.group7.jhealth.fragments.PreferencesFragment"
+        android:label="@string/settings" />
+    <action
+        android:id="@+id/action_global_navigate_to_preferences_fragment"
+        app:destination="@id/nav_preferences" />
 
 </navigation>

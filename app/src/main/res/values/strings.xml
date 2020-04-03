@@ -4,6 +4,8 @@
     <string name="nav_header_subtitle">Health is not simply the absence of sickness</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="update_user_info">Update user info</string>
+    <string name="settings">Settings</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_diet_monitoring">Diet Monitoring</string>
@@ -62,7 +64,6 @@
     <!--WaterTracker Menu-->
     <string name="drink_log">Drink log</string>
     <string name="drink_report">Drink report</string>
-    <string name="settings">Settings</string>
     <string name="ml">ml</string>
     <string name="custom">Custom</string>/
 </resources>

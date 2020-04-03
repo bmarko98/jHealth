@@ -2,8 +2,8 @@ package com.group7.jhealth
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -13,6 +13,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import com.group7.jhealth.*
 import com.group7.jhealth.fragments.HomeFragment
 import com.group7.jhealth.fragments.LoginFormFragment
 import io.realm.Realm
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Log
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        preferences = this.getSharedPreferences(SHARED_PREF_FILE, AppCompatActivity.MODE_PRIVATE)
+        preferences = this.getSharedPreferences(SHARED_PREF_FILE, MODE_PRIVATE)
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -90,6 +91,16 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Log
             R.id.workoutPlanTextView ->
                 navController.navigate(R.id.action_global_navigate_to_workout_plan_fragment)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+
+        when (item.itemId) {
+            R.id.action_settings -> navController.navigate(R.id.action_global_navigate_to_preferences_fragment)
+            R.id.action_update_user_info -> navController.navigate(R.id.action_global_navigate_to_login_form_fragment)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSubmitLoginForm(name: String, age: Int, gender: String, weight: Int, wakeUpTime: Date, sleepTime: Date) {
