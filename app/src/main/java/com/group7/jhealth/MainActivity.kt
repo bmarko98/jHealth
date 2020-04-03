@@ -1,11 +1,12 @@
 package com.group7.jhealth
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -13,19 +14,27 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.group7.jhealth.fragments.HomeFragment
+import com.group7.jhealth.fragments.LoginFormFragment
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import io.realm.kotlin.createObject
+import io.realm.kotlin.where
+import java.util.*
 
-class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener {
+class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, LoginFormFragment.LoginFormFragmentListener {
 
+    private lateinit var preferences: SharedPreferences
+    private lateinit var preferencesEditor: SharedPreferences.Editor
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var fragmentManager: FragmentManager
+    private lateinit var realm: Realm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        preferences = this.getSharedPreferences(SHARED_PREF_FILE, AppCompatActivity.MODE_PRIVATE)
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -48,6 +57,13 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener {
         Realm.init(this)
         val config = RealmConfiguration.Builder().name(REALM_CONFIG_FILE_NAME).build()
         Realm.setDefaultConfiguration(config)
+
+        if (preferences.getBoolean(KEY_PREF_IS_FIRST_LAUNCH, true)) {
+            preferencesEditor = preferences.edit()
+            preferencesEditor.putBoolean(KEY_PREF_IS_FIRST_LAUNCH, false)
+            preferencesEditor.apply()
+            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_navigate_to_login_form_fragment)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -74,5 +90,18 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener {
             R.id.workoutPlanTextView ->
                 navController.navigate(R.id.action_global_navigate_to_workout_plan_fragment)
         }
+    }
+
+    override fun onSubmitLoginForm(name: String, age: Int, gender: String, weight: Int, wakeUpTime: Date, sleepTime: Date) {
+        realm = Realm.getDefaultInstance()
+        realm.beginTransaction()
+        val user: UserInfo = realm.createObject<UserInfo>((realm.where<UserInfo>().findAll().size) + 1)
+        user.name = name
+        user.age = age
+        user.gender = gender
+        user.weight = weight
+        user.wakeUpTime = wakeUpTime
+        user.sleepTime = sleepTime
+        realm.commitTransaction()
     }
 }

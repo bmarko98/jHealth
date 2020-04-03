@@ -57,4 +57,12 @@
         android:id="@+id/action_global_navigate_to_workout_plan_fragment"
         app:destination="@id/nav_workout_plan" />
 
+    <action
+        android:id="@+id/action_global_navigate_to_home_fragment"
+        app:destination="@id/nav_home" />
+
+    <action
+        android:id="@+id/action_global_navigate_to_login_form_fragment"
+        app:destination="@id/nav_login_form" />
+
 </navigation>
