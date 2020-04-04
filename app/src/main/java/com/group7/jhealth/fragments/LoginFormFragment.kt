@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.group7.jhealth.*
+import com.group7.jhealth.database.UserInfo
 import io.realm.Realm
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
