@@ -1,5 +1,6 @@
 package com.group7.jhealth.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.group7.jhealth.R
 import com.group7.jhealth.SIMPLE_DATE_FORMAT_TIME_PATTERN
-import com.group7.jhealth.WaterIntake
+import com.group7.jhealth.database.WaterIntake
 import com.group7.jhealth.fragments.OnIntakeLongClickListener
 import kotlinx.android.synthetic.main.recyler_view_layout_water_intake_history.view.*
 import java.text.SimpleDateFormat
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat
 class WaterIntakeHistoryRecyclerViewAdapter(var context: Context) : RecyclerView.Adapter<WaterIntakeHistoryRecyclerViewAdapter.ViewHolder>() {
 
     var intakeHistory = listOf<WaterIntake>()
+    @SuppressLint("SimpleDateFormat")
     private val dateFormat = SimpleDateFormat(SIMPLE_DATE_FORMAT_TIME_PATTERN)
     private lateinit var onLongClickCallback: OnIntakeLongClickListener
 
@@ -41,6 +43,7 @@ class WaterIntakeHistoryRecyclerViewAdapter(var context: Context) : RecyclerView
             view.setOnLongClickListener(this)
         }
 
+        @SuppressLint("SetTextI18n")
         fun bindView(waterIntake: WaterIntake) {
             itemView.recyclerCupIconImageView.setImageResource(waterIntake.iconId)
             itemView.cupSizeTextView.text = waterIntake.intakeAmount.toString() + " ml"
@@ -48,7 +51,7 @@ class WaterIntakeHistoryRecyclerViewAdapter(var context: Context) : RecyclerView
         }
 
         override fun onLongClick(view: View): Boolean {
-            onLongClickCallback.onLongClick(intakeHistory[adapterPosition])
+            onLongClickCallback.onLongClickWaterIntakeRecyclerViewItem(intakeHistory[adapterPosition])
             return true
         }
     }

@@ -67,31 +67,30 @@ class DrinkCupSizeDialog : DialogFragment() {
             }
 
             builder.setMessage(getString(R.string.ml))
-                .setPositiveButton(R.string.ok, DialogInterface.OnClickListener { dialog, id ->
+                .setPositiveButton(R.string.ok) { dialog, id ->
                     if (isCustom)
                         chosenSize = customCupSizeEditText.text.toString().toInt()
-
                     listener.drinkCupSizeDialogListener(chosenSize)
-                }).setNegativeButton(R.string.cancel, DialogInterface.OnClickListener { dialog, id ->
+                }.setNegativeButton(R.string.cancel) { dialog, id ->
                     getDialog()?.cancel()
-                })
+                }
 
             builder.setView(dialogView)
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-        override fun onAttach(context: Context) {
-            super.onAttach(context)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
-            try {
-                listener = context as DrinkCupSizeDialogListener
-            } catch (err: ClassCastException) {
-                throw ClassCastException((context.toString() + " must implement DrinkCupSizeDialogListener"))
-            }
+        try {
+            listener = context as DrinkCupSizeDialogListener
+        } catch (err: ClassCastException) {
+            throw ClassCastException(("$context must implement DrinkCupSizeDialogListener"))
         }
+    }
 
-        interface DrinkCupSizeDialogListener {
-            fun drinkCupSizeDialogListener(chosenSize: Int)
-        }
+    interface DrinkCupSizeDialogListener {
+        fun drinkCupSizeDialogListener(chosenSize: Int)
+    }
 }
