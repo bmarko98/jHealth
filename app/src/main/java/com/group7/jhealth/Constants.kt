@@ -8,5 +8,7 @@ const val SIMPLE_DATE_FORMAT_TIME_PATTERN: String = "HH:mm"
 
 const val KEY_GENDER_MALE: String = "male"
 const val KEY_GENDER_FEMALE: String = "female"
+const val DEFAULT_WAKE_UP_TIME: String = "09:00"
+const val DEFAULT_SLEEP_UP_TIME: String = "21:00"
 
 const val REALM_CONFIG_FILE_NAME: String = "jhealth.realm"

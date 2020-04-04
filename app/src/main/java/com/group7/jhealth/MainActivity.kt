@@ -13,21 +13,15 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
-import com.group7.jhealth.*
 import com.group7.jhealth.fragments.HomeFragment
-import com.group7.jhealth.fragments.LoginFormFragment
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import io.realm.kotlin.createObject
-import io.realm.kotlin.where
-import java.util.*
 
-class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, LoginFormFragment.LoginFormFragmentListener {
+class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener/*, LoginFormFragment.LoginFormFragmentListener*/ {
 
     private lateinit var preferences: SharedPreferences
     private lateinit var preferencesEditor: SharedPreferences.Editor
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var realm: Realm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,18 +95,5 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Log
             R.id.action_update_user_info -> navController.navigate(R.id.action_global_navigate_to_login_form_fragment)
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onSubmitLoginForm(name: String, age: Int, gender: String, weight: Int, wakeUpTime: Date, sleepTime: Date) {
-        realm = Realm.getDefaultInstance()
-        realm.beginTransaction()
-        val user: UserInfo = realm.createObject<UserInfo>((realm.where<UserInfo>().findAll().size) + 1)
-        user.name = name
-        user.age = age
-        user.gender = gender
-        user.weight = weight
-        user.wakeUpTime = wakeUpTime
-        user.sleepTime = sleepTime
-        realm.commitTransaction()
     }
 }

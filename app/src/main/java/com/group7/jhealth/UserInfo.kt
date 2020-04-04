@@ -10,7 +10,7 @@ open class UserInfo(
     var age: Int = 0,
     var gender: String = "",
     var weight: Int = 0,
-    var wakeUpTime: Date = Date(),
-    var sleepTime: Date = Date()
+    var wakeUpTime: Date? = Date(),
+    var sleepTime: Date? = Date()
 ) : RealmObject()
 

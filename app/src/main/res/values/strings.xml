@@ -30,15 +30,18 @@
     <string name="workout_plan">Workout plan</string>
 
     <!--PersonalInfoFragment-->
-    <string name="name">What is your name</string>
-    <string name="age">How old are you?</string>
+    <string name="what_is_your_name">What is your name</string>
+    <string name="name">Name</string>
+    <string name="how_old_are_you">How old are you?</string>
+    <string name="age">Age</string>
     <string name="gender">What is your gender?</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="OK">OK</string>
-    <string name="weight">Weight:</string>
+    <string name="what_do_you_weight">What do you weight?</string>
+    <string name="weight">Weight</string>
     <string name="sleep_time">Wake up and sleep time:</string>
-    <string name="welcome">Welcome</string>
+    <string name="information">Information</string>
     <string name="skip">Skip</string>
 
     <!--WorkoutPlan-->
