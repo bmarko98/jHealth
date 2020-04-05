@@ -12,5 +12,5 @@ open class UserInfo(
     var weight: Int = 0,
     var wakeUpTime: Date? = Date(),
     var sleepTime: Date? = Date(),
-    var drinkCupSize: Int = 0
+    var drinkCupSize: Int = 250
 ) : RealmObject()

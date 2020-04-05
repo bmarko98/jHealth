@@ -1,7 +1,9 @@
 package com.group7.jhealth
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -13,15 +15,24 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import com.group7.jhealth.database.UserInfo
+import com.group7.jhealth.database.WaterIntake
+import com.group7.jhealth.dialogs.DrinkCupSizeDialog
 import com.group7.jhealth.fragments.HomeFragment
+import com.group7.jhealth.fragments.OnIntakeLongClickListener
+import com.group7.jhealth.fragments.WaterTrackerFragment
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import io.realm.kotlin.where
 
-class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener/*, LoginFormFragment.LoginFormFragmentListener*/ {
+
+class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, DrinkCupSizeDialog.DrinkCupSizeDialogListener,
+    OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener {
 
     private lateinit var preferences: SharedPreferences
     private lateinit var preferencesEditor: SharedPreferences.Editor
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var realm: Realm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +63,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener/*, L
         Realm.init(this)
         val config = RealmConfiguration.Builder().name(REALM_CONFIG_FILE_NAME).build()
         Realm.setDefaultConfiguration(config)
+        realm = Realm.getDefaultInstance()
 
         if (preferences.getBoolean(KEY_PREF_IS_FIRST_LAUNCH, true)) {
             preferencesEditor = preferences.edit()
@@ -95,5 +107,25 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener/*, L
             R.id.action_update_user_info -> navController.navigate(R.id.action_global_navigate_to_login_form_fragment)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun drinkCupSizeDialogListener(chosenSize: Int) {
+        realm.beginTransaction()
+        val userInfo = realm.where<UserInfo>().findFirst()
+        userInfo?.drinkCupSize = chosenSize
+        realm.commitTransaction()
+    }
+
+    override fun onLongClickWaterIntakeRecyclerViewItem(intake: WaterIntake) {
+        Log.e("Long clicked", intake.intakeAmount.toString() + " " + intake.time)
+    }
+
+    override fun onAddDrinkingCupButtonClicked() {
+        DrinkCupSizeDialog().show(supportFragmentManager, "")
+    }
+
+    override fun onDestroy() {
+        realm.close()
+        super.onDestroy()
     }
 }
