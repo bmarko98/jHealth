@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
     private lateinit var preferencesEditor: SharedPreferences.Editor
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var realm: Realm
+    private var isInMenu = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -120,10 +121,15 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
         }
+        if (isInMenu) {
+            isInMenu = false
+            val homeFragment = HomeFragment()
+            show(homeFragment)
+        } else
+            super.onBackPressed()
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -137,27 +143,39 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
     }
 
     override fun onClickListener(clickedItemId: Int) {
-        val navController = findNavController(R.id.nav_host_fragment)
-
         when (clickedItemId) {
-            R.id.dietMonitoringTextView ->
-                navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment)
-            R.id.sleepMonitoringTextView ->
-                navController.navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment)
-            R.id.waterTrackerTextView ->
-                navController.navigate(R.id.action_global_navigate_to_water_tracker_fragment)
-            R.id.workoutPlanTextView ->
-                navController.navigate(R.id.action_global_navigate_to_workout_plan_fragment)
+            R.id.dietMonitoringTextView -> {
+                val dietMonitoringFragment = DietMonitoringFragment()
+                show(dietMonitoringFragment)
+            }
+            R.id.sleepMonitoringTextView -> {
+                val sleepMonitoringFragment = SleepMonitoringFragment()
+                show(sleepMonitoringFragment)
+            }
+            R.id.waterTrackerTextView -> {
+                val waterTrackerFragment = WaterTrackerFragment()
+                waterTrackerFragment.updateIntakeHistory(realm.where<WaterIntake>().findAll())
+                show(waterTrackerFragment)
+            }
+            R.id.workoutPlanTextView -> {
+                val workoutPlanFragment = WorkoutPlanFragment()
+                show(workoutPlanFragment)
+            }
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-
         when (item.itemId) {
-            R.id.action_settings -> navController.navigate(R.id.action_global_navigate_to_preferences_fragment)
-            R.id.action_update_user_info -> navController.navigate(R.id.action_global_navigate_to_login_form_fragment)
+            R.id.action_settings -> {
+                val preferencesFragment = PreferencesFragment()
+                show(preferencesFragment)
+            }
+            R.id.action_update_user_info -> {
+                val loginFormFragment = LoginFormFragment()
+                show(loginFormFragment)
+            }
         }
+        isInMenu = true
         return super.onOptionsItemSelected(item)
     }
 
