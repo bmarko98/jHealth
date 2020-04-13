@@ -1,33 +1,33 @@
 package com.group7.jhealth
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.FrameLayout
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.group7.jhealth.database.UserInfo
 import com.group7.jhealth.database.WaterIntake
 import com.group7.jhealth.dialogs.DrinkCupSizeDialog
-import com.group7.jhealth.fragments.HomeFragment
-import com.group7.jhealth.fragments.OnIntakeLongClickListener
-import com.group7.jhealth.fragments.WaterTrackerFragment
+import com.group7.jhealth.fragments.*
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.kotlin.where
-
+import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
 
 class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, DrinkCupSizeDialog.DrinkCupSizeDialogListener,
-    OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener {
+    OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener, NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var preferences: SharedPreferences
     private lateinit var preferencesEditor: SharedPreferences.Editor
@@ -44,20 +44,18 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home,
-                R.id.nav_diet_monitoring,
-                R.id.nav_sleep_monitoring,
-                R.id.nav_water_tracker,
-                R.id.nav_workout_plan
-            ), drawerLayout
+        val toggle = ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        navView.setNavigationItemSelectedListener(this)
+
 
         //File(this.filesDir.path).deleteRecursively()
         Realm.init(this)
@@ -70,6 +68,58 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
             preferencesEditor.putBoolean(KEY_PREF_IS_FIRST_LAUNCH, false)
             preferencesEditor.apply()
             findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_navigate_to_login_form_fragment)
+        }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_home -> {
+                val homeFragment = HomeFragment()
+                show(homeFragment)
+            }
+            R.id.nav_diet_monitoring -> {
+                val dietMonitoringFragment = DietMonitoringFragment()
+                show(dietMonitoringFragment)
+            }
+            R.id.nav_sleep_monitoring -> {
+                val sleepMonitoringFragment = SleepMonitoringFragment()
+                show(sleepMonitoringFragment)
+            }
+            R.id.nav_water_tracker -> {
+                val waterTrackerFragment = WaterTrackerFragment()
+                show(waterTrackerFragment)
+            }
+            R.id.nav_workout_plan -> {
+                val workoutPlanFragment = WorkoutPlanFragment()
+                show(workoutPlanFragment)
+            }
+        }
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    private fun show(fragment: Fragment) {
+        val drawerLayout = drawer_layout as DrawerLayout
+        val fragmentManager = supportFragmentManager
+
+        findViewById<FrameLayout>(R.id.nav_host_fragment).removeAllViews()
+        //workaround for the problem of 2 fragments being on top of each other
+
+        fragmentManager
+            .beginTransaction()
+            .replace(R.id.nav_host_fragment, fragment)
+            .commit()
+
+        drawerLayout.closeDrawer(GravityCompat.START)
+    }
+
+    override fun onBackPressed() {
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
         }
     }
 
