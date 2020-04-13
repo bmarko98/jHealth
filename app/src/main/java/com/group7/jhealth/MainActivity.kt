@@ -98,24 +98,20 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
 
     override fun onClickListener(clickedItemId: Int) {
         when (clickedItemId) {
-            R.id.nav_home -> {
-                val homeFragment = HomeFragment()
-                show(homeFragment)
-            }
-            R.id.nav_diet_monitoring -> {
+            R.id.dietMonitoringTextView -> {
                 val dietMonitoringFragment = DietMonitoringFragment()
                 show(dietMonitoringFragment)
             }
-            R.id.nav_sleep_monitoring -> {
+            R.id.sleepMonitoringTextView -> {
                 val sleepMonitoringFragment = SleepMonitoringFragment()
                 show(sleepMonitoringFragment)
             }
-            R.id.nav_water_tracker -> {
+            R.id.waterTrackerTextView -> {
                 val waterTrackerFragment = WaterTrackerFragment()
                 waterTrackerFragment.updateIntakeHistory(realm.where<WaterIntake>().findAll())
                 show(waterTrackerFragment)
             }
-            R.id.nav_workout_plan -> {
+            R.id.workoutPlanTextView -> {
                 val workoutPlanFragment = WorkoutPlanFragment()
                 show(workoutPlanFragment)
             }
