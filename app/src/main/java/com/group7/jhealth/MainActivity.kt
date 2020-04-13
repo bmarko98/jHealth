@@ -22,9 +22,10 @@ import com.group7.jhealth.dialogs.DrinkCupSizeDialog
 import com.group7.jhealth.fragments.*
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.File
+import java.util.*
 
 class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, DrinkCupSizeDialog.DrinkCupSizeDialogListener,
     OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener, NavigationView.OnNavigationItemSelectedListener {
@@ -87,6 +88,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
             }
             R.id.nav_water_tracker -> {
                 val waterTrackerFragment = WaterTrackerFragment()
+                waterTrackerFragment.updateIntakeHistory(realm.where<WaterIntake>().findAll())
                 show(waterTrackerFragment)
             }
             R.id.nav_workout_plan -> {
@@ -172,6 +174,26 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
 
     override fun onAddDrinkingCupButtonClicked() {
         DrinkCupSizeDialog().show(supportFragmentManager, "")
+    }
+
+    override fun addWaterIntakeToDatabase() {
+        realm.beginTransaction()
+        val waterIntake: WaterIntake = realm.createObject<WaterIntake>((realm.where<WaterIntake>().findAll().size) + 1)
+        waterIntake.intakeAmount = realm.where<UserInfo>().findFirst()?.drinkCupSize!!
+        waterIntake.time = Calendar.getInstance().time
+        waterIntake.iconId = getCupIcon(waterIntake.intakeAmount)
+        realm.commitTransaction()
+    }
+
+    private fun getCupIcon(intakeAmount: Int): Int {
+        return when (intakeAmount) {
+            50, 100, 150 -> R.drawable.tea_cup_icon
+            200, 250, 300 -> R.drawable.water_glass_icon
+            350, 400, 450 -> R.drawable.small_water_bottle_icon
+            500, 550, 600 -> R.drawable.water_bottle_icon
+            650, 700, 750, 800, 1000, 1500 -> R.drawable.large_water_bottle_icon
+            else -> R.drawable.custom_cup_icon
+        }
     }
 
     override fun onDestroy() {
