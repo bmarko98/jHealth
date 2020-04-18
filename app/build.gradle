@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
+apply plugin: 'org.jetbrains.dokka-android'
 
 android {
     compileSdkVersion 29
@@ -39,6 +40,11 @@ android {
 
     kapt {
         correctErrorTypes = true
+    }
+
+    dokka {
+        outputFormat = 'html'
+        outputDirectory = "/home/lenovo/Desktop/dokka"
     }
 }
 
