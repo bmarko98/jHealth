@@ -1,11 +1,10 @@
-package com.group7.jhealth.fragments
+package com.group7.jhealth
 
 import android.app.Activity
 import android.view.View
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
-import com.group7.jhealth.MainActivity
-import com.group7.jhealth.R
+import com.group7.jhealth.fragments.HomeFragment
 import org.junit.After
 import org.junit.Before
 
@@ -31,7 +30,9 @@ class HomeFragmentTest {
         val fragmentManager = mActivityTestRule.activity.supportFragmentManager
 
         fragmentManager
-            .beginTransaction().replace(R.id.nav_host_fragment, HomeFragment())
+            .beginTransaction().replace(R.id.nav_host_fragment,
+                HomeFragment()
+            )
             .commitAllowingStateLoss()
 
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()

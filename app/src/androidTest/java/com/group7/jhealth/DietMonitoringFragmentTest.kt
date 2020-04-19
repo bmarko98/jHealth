@@ -1,24 +1,21 @@
-package com.group7.jhealth.fragments
+package com.group7.jhealth
 
 import android.app.Activity
 import android.view.View
-import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.rule.ActivityTestRule
-import com.group7.jhealth.MainActivity
-import com.group7.jhealth.R
+import com.group7.jhealth.fragments.DietMonitoringFragment
 import org.junit.After
 import org.junit.Before
-
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 
-class WorkoutPlanFragmentTest {
+class DietMonitoringFragmentTest {
 
     var mActivity: Activity? = null
 
-    @Rule
-    @JvmField
+    @Rule @JvmField
     val mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Before
@@ -31,12 +28,14 @@ class WorkoutPlanFragmentTest {
         val fragmentManager = mActivityTestRule.activity.supportFragmentManager
 
         fragmentManager
-            .beginTransaction().replace(R.id.nav_host_fragment, WorkoutPlanFragment())
+            .beginTransaction().replace(R.id.nav_host_fragment,
+                DietMonitoringFragment()
+            )
             .commitAllowingStateLoss()
 
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+        getInstrumentation().waitForIdleSync()
 
-        val view: View = mActivity!!.findViewById(R.id.nav_workout_plan)
+        val view: View = mActivity!!.findViewById(R.id.nav_diet_monitoring)
         assertNotNull(view)
     }
 
