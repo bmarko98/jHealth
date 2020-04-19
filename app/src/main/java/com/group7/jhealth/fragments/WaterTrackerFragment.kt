@@ -23,7 +23,7 @@ class WaterTrackerFragment : Fragment() {
     private lateinit var waterIntakeHistoryRecyclerViewAdapter: WaterIntakeHistoryRecyclerViewAdapter
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var listener: WaterTrackerFragmentListener
-    private lateinit var intakeHistory: MutableList<WaterIntake>
+    private var intakeHistory: MutableList<WaterIntake>? = null
     private lateinit var realm: Realm
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,7 +40,7 @@ class WaterTrackerFragment : Fragment() {
         waterIntakeHistoryRecyclerView.layoutManager = layoutManager
         waterIntakeHistoryRecyclerViewAdapter = WaterIntakeHistoryRecyclerViewAdapter(context!!)
         waterIntakeHistoryRecyclerView.adapter = waterIntakeHistoryRecyclerViewAdapter
-        waterIntakeHistoryRecyclerViewAdapter.updateData(intakeHistory)
+        intakeHistory?.let { waterIntakeHistoryRecyclerViewAdapter.updateData(it) }
 
         addDrinkingCupButton.setOnClickListener {
             listener.onAddDrinkingCupButtonClicked()
@@ -48,7 +48,7 @@ class WaterTrackerFragment : Fragment() {
 
         addIntakeButton.setOnClickListener {
             listener.addWaterIntakeToDatabase()
-            waterIntakeHistoryRecyclerViewAdapter.updateData(intakeHistory)
+            intakeHistory?.let { it1 -> waterIntakeHistoryRecyclerViewAdapter.updateData(it1) }
         }
     }
 

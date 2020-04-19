@@ -71,7 +71,7 @@
         android:id="@+id/nav_record_entry"
         android:name="com.group7.jhealth.fragments.RecordEntryFragment"
         android:label="@string/diet_monitoring"
-        tools:layout="@layout/fragment_sleep_monitoring"/>
+        tools:layout="@layout/fragment_record_entry"/>
     <action
         android:id="@+id/action_global_navigate_to_record_entry_fragment"
         app:destination="@id/nav_record_entry" />
