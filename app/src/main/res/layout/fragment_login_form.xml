@@ -22,7 +22,8 @@
 
         android:ems="10"
         android:hint="@string/name"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/textView2"
@@ -40,7 +41,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/age"
-        android:inputType="number" />
+        android:inputType="number"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/textView3"
@@ -86,7 +88,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/weight"
-        android:inputType="number" />
+        android:inputType="number"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/textView6"
@@ -115,7 +118,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="30sp"
-            android:text=" - "
+            android:text="@string/dash_separator"
             android:textSize="18sp" />
 
         <TextView

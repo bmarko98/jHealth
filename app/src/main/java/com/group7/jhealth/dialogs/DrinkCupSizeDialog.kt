@@ -1,5 +1,6 @@
 package com.group7.jhealth.dialogs
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -24,6 +25,7 @@ class DrinkCupSizeDialog : DialogFragment() {
     private lateinit var dialogView: View
     private lateinit var cupIconImageView: ImageView
 
+    @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
 
