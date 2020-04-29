@@ -18,6 +18,17 @@ import kotlinx.android.synthetic.main.fragment_login_form.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Class for setting up the Login Form
+ * @property dateFormat initialized to a SimpleDataFormat
+ * @property realm default instance of Realm
+ * @property name initialized to empty string
+ * @property age initialized to 0
+ * @property gender initialized to empty string
+ * @property weight initialized to 0
+ * @property wakeUpTime initialized to the default wake up time
+ * @property sleepTime initialized to the default sleep time
+ */
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class LoginFormFragment : Fragment() {
 
@@ -32,10 +43,26 @@ class LoginFormFragment : Fragment() {
     private var wakeUpTime: Date = dateFormat.parse(DEFAULT_WAKE_UP_TIME)
     private var sleepTime: Date = dateFormat.parse(DEFAULT_SLEEP_UP_TIME)
 
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     * @return Return the View for the fragment's UI, or null.
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_login_form, container, false)
     }
 
+    /**
+     * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} has returned, but before any saved state has been restored in to the view.
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val navController = findNavController()
 
@@ -61,6 +88,14 @@ class LoginFormFragment : Fragment() {
         displayUserInfo()
     }
 
+    /**
+     * updates Realm with user's input
+     * name
+     * age
+     * weight
+     * wakeupTime
+     * sleepTime
+     */
     private fun updateDatabase() {
         name = nameEditText.text.toString()
         if (ageEditText.text.toString().isNotBlank())
@@ -89,6 +124,10 @@ class LoginFormFragment : Fragment() {
         realm.commitTransaction()
     }
 
+    /**
+     * if Database is non-empty
+     * display User's input values for the given parameters
+     */
     private fun displayUserInfo() {
         if (realm.where<UserInfo>().findFirst() != null) {
             val user: UserInfo? = realm.where<UserInfo>().findFirst()
@@ -105,6 +144,10 @@ class LoginFormFragment : Fragment() {
         }
     }
 
+    /**
+     * set up time properties selected by user
+     * @param textView of TextView stores user's input
+     */
     private fun getTimeFromUser(textView: TextView) {
         val calendar = Calendar.getInstance()
 
@@ -116,6 +159,10 @@ class LoginFormFragment : Fragment() {
         TimePickerDialog(context, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show()
     }
 
+    /**
+     * Called when the fragment is no longer in use.  This is called
+     * after {@link #onStop()} and before {@link #onDetach()}.
+     */
     override fun onDestroy() {
         realm.close()
         super.onDestroy()

@@ -4,6 +4,12 @@ import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import java.util.*
 
+/**
+ * User Info Class
+ * contains the variables for user's input
+ * variables are initialized
+ */
+
 open class UserInfo(
     @PrimaryKey var id: Int = 0,
     var name: String = "",

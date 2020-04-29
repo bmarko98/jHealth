@@ -20,6 +20,14 @@ import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import java.util.*
 
+/**
+ * Main Activity class
+ * menu & navigation to all the fragments this app has to offer
+ * login form and properties
+ * database connection
+ * @constructor Creates an empty group.
+ *
+ */
 class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, DrinkCupSizeDialog.DrinkCupSizeDialogListener,
     OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener {
 
@@ -28,6 +36,18 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
     private lateinit var realm: Realm
     private var isInMenu = false
 
+    /**
+     * Perform initialization of all fragments.
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.
+     *     <b><i>Note: Otherwise it is null.</i></b>
+     *
+     * @see #onStart
+     * @see #onSaveInstanceState
+     * @see #onRestoreInstanceState
+     * @see #onPostCreate
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -78,6 +98,11 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
         }
     }
 
+    /**
+     * based on the chosen
+     * @param fragment
+     * the fragment manager navigates to the desired fragment
+     */
     private fun show(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
 
@@ -90,12 +115,27 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
             .commit()
     }
 
+    /**
+     *Inflate the menu
+     *  this adds items to the action bar if it is present.
+     * @param menu The options menu in which you place your items.
+     * @return You must return true for the menu to be displayed
+     *         if you return false it will not be shown.
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
+    /**
+     * based on the option the user clicks -> redirects you to that page
+     * @param clickedItemId represents the ID of the item
+     * options to choose from:
+     * Diet Monitoring
+     * Sleep Monitoring
+     * Water Tracking
+     * Workout Planning
+     */
     override fun onClickListener(clickedItemId: Int) {
         when (clickedItemId) {
             R.id.dietMonitoringTextView -> {
@@ -118,6 +158,13 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
         }
     }
 
+    /**
+     * based on the ID of the item chosen
+     * @param item represents the menu options the user can choose from:
+     * settings(preferences) and update user info (login form)
+     * @return  boolean Return false to allow normal menu processing to proceed, true to consume it here.
+     *  @see #onCreateOptionsMenu
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> {
@@ -133,6 +180,10 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
         return super.onOptionsItemSelected(item)
     }
 
+    /**
+     *takes in the cup size that is chosen
+     *@param chosenSize cup size
+     */
     override fun drinkCupSizeDialogListener(chosenSize: Int) {
         realm.beginTransaction()
         val userInfo = realm.where<UserInfo>().findFirst()
@@ -140,14 +191,23 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
         realm.commitTransaction()
     }
 
+    /**
+     * action when button for water intake clicked
+     */
     override fun onLongClickWaterIntakeRecyclerViewItem(intake: WaterIntake) {
         Log.e("Long clicked", intake.intakeAmount.toString() + " " + intake.time)
     }
 
+    /**
+     * action when button for adding a cup is clicked
+     */
     override fun onAddDrinkingCupButtonClicked() {
         DrinkCupSizeDialog().show(supportFragmentManager, "")
     }
 
+    /**
+     * updates the Database with the selected water intake
+     */
     override fun addWaterIntakeToDatabase() {
         realm.beginTransaction()
         val waterIntake: WaterIntake = realm.createObject<WaterIntake>((realm.where<WaterIntake>().findAll().size) + 1)
@@ -157,6 +217,11 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
         realm.commitTransaction()
     }
 
+    /**
+     * Chooses the correct cup icon based on user input
+     * @param intakeAmount selected amount of water intake
+     * @return the appropriate cup size based on the intake amount
+     */
     private fun getCupIcon(intakeAmount: Int): Int {
         return when (intakeAmount) {
             50, 100, 150 -> R.drawable.tea_cup_icon
@@ -168,6 +233,10 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
         }
     }
 
+    /**
+     * navigation between fragments (Menu, Home)
+     * using the Back button
+     */
     override fun onBackPressed() {
         if (isInMenu) {
             isInMenu = false
@@ -177,6 +246,10 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
             super.onBackPressed()
     }
 
+    /**
+     * Called when the fragment is no longer in use.  This is called
+     * after {@link #onStop()} and before {@link #onDetach()}.
+     */
     override fun onDestroy() {
         realm.close()
         super.onDestroy()

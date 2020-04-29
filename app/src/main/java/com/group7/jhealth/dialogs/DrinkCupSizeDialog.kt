@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -15,6 +14,17 @@ import androidx.core.view.isGone
 import androidx.fragment.app.DialogFragment
 import com.group7.jhealth.R
 
+/**
+ * Class for Setting up Cup Size
+ * @property cupSizeNumberPicker of NumberPicker
+ * @property customCupSizeEditText of EditText
+ * @property listener of WaterTrackerFragmentListener
+ * @property customSizeButton of Button
+ * @property chosenSize integer initialized to 0
+ * @property isCustom boolean initialized to false
+ * @property dialogView of View
+ * @property cupIconImageView of ImageView
+ */
 class DrinkCupSizeDialog : DialogFragment() {
     private lateinit var listener: DrinkCupSizeDialogListener
     private lateinit var cupSizeNumberPicker: NumberPicker
@@ -25,6 +35,13 @@ class DrinkCupSizeDialog : DialogFragment() {
     private lateinit var dialogView: View
     private lateinit var cupIconImageView: ImageView
 
+   /**
+    * Setting up the parameters for the cup size
+    * @param savedInstanceState The last saved instance state of the Fragment,
+    * or null if this is a freshly created Fragment.
+    * @throws IllegalStateException ---> Activity cannot be null
+    * @return Return a new Dialog instance to be displayed by the Fragment.
+    */
     @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -82,6 +99,10 @@ class DrinkCupSizeDialog : DialogFragment() {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
+    /**
+     * Called when a fragment is first attached to its context.
+     * @param context
+     */
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
