@@ -14,6 +14,6 @@ class PreferencesFragment : PreferenceFragmentCompat()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
-        preferences = context!!.getSharedPreferences(SHARED_PREF_FILE, AppCompatActivity.MODE_PRIVATE)
+        preferences = requireContext().getSharedPreferences(SHARED_PREF_FILE, AppCompatActivity.MODE_PRIVATE)
     }
 }
