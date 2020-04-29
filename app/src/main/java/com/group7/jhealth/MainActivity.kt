@@ -224,12 +224,12 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
      */
     private fun getCupIcon(intakeAmount: Int): Int {
         return when (intakeAmount) {
-            50, 100, 150 -> R.drawable.tea_cup_icon
-            200, 250, 300 -> R.drawable.water_glass_icon
-            350, 400, 450 -> R.drawable.small_water_bottle_icon
-            500, 550, 600 -> R.drawable.water_bottle_icon
-            650, 700, 750, 800, 1000, 1500 -> R.drawable.large_water_bottle_icon
-            else -> R.drawable.custom_cup_icon
+            50, 100, 150 -> R.drawable.ic_tea_cup
+            200, 250, 300 -> R.drawable.ic_water_glass
+            350, 400, 450 -> R.drawable.ic_small_water_bottle
+            500, 550, 600 -> R.drawable.ic_water_bottle
+            650, 700, 750, 800, 1000, 1500 -> R.drawable.ic_large_water_bottle
+            else -> R.drawable.ic_custom_cup
         }
     }
 

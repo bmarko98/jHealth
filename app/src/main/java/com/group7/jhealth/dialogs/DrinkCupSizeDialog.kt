@@ -67,11 +67,11 @@ class DrinkCupSizeDialog : DialogFragment() {
                 chosenSize = pickerValues[newVal].toInt()
 
                 when (chosenSize) {
-                    50, 100, 150 -> cupIconImageView.setImageResource(R.drawable.tea_cup_icon)
-                    200, 250, 300 -> cupIconImageView.setImageResource(R.drawable.water_glass_icon)
-                    350, 400, 450 -> cupIconImageView.setImageResource(R.drawable.small_water_bottle_icon)
-                    500, 550, 600 -> cupIconImageView.setImageResource(R.drawable.water_bottle_icon)
-                    else -> cupIconImageView.setImageResource(R.drawable.large_water_bottle_icon)
+                    50, 100, 150 -> cupIconImageView.setImageResource(R.drawable.ic_tea_cup)
+                    200, 250, 300 -> cupIconImageView.setImageResource(R.drawable.ic_water_glass)
+                    350, 400, 450 -> cupIconImageView.setImageResource(R.drawable.ic_small_water_bottle)
+                    500, 550, 600 -> cupIconImageView.setImageResource(R.drawable.ic_water_bottle)
+                    else -> cupIconImageView.setImageResource(R.drawable.ic_large_water_bottle)
                 }
             }
 

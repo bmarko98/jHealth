@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="@+id/cupSizeNumberPicker"
 
         app:layout_constraintVertical_bias="0.2"
-        app:srcCompat="@drawable/water_glass_icon" />
+        app:srcCompat="@drawable/ic_water_glass" />
 
     <Button
         android:id="@+id/customSizeButton"

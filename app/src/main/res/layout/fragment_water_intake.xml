@@ -65,7 +65,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/plus_icon" />
+        app:srcCompat="@drawable/ic_plus" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addDrinkingCupButton"
@@ -83,6 +83,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/glass_icon" />
+        app:srcCompat="@drawable/ic_glass" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
