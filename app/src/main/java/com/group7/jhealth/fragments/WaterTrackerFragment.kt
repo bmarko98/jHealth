@@ -38,7 +38,7 @@ class WaterTrackerFragment : Fragment() {
 
         layoutManager = GridLayoutManager(context, 4)
         waterIntakeHistoryRecyclerView.layoutManager = layoutManager
-        waterIntakeHistoryRecyclerViewAdapter = WaterIntakeHistoryRecyclerViewAdapter(context!!)
+        waterIntakeHistoryRecyclerViewAdapter = WaterIntakeHistoryRecyclerViewAdapter(requireContext())
         waterIntakeHistoryRecyclerView.adapter = waterIntakeHistoryRecyclerViewAdapter
         intakeHistory?.let { waterIntakeHistoryRecyclerViewAdapter.updateData(it) }
 
