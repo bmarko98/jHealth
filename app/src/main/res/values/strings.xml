@@ -36,6 +36,7 @@
     <string name="sleep_time">Wake up and sleep time:</string>
     <string name="information">Information</string>
     <string name="skip">Skip</string>
+    <string name="minutes">Workout duration: %1$d minutes</string>
 
     <!--WorkoutPlan-->
     <string name="select_workout_plan">Select Workout Plan</string>
