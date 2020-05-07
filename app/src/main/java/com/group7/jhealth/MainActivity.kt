@@ -172,8 +172,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
                 show(preferencesFragment)
             }
             R.id.action_update_user_info -> {
-                val loginFormFragment = LoginFormFragment()
-                show(loginFormFragment)
+                findNavController(R.id.nav_host_fragment).navigate(R.id.nav_login_form)
             }
         }
         isInMenu = true
