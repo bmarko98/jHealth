@@ -28,7 +28,8 @@ import java.util.*
  * @constructor Creates an empty group.
  *
  */
-class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, DrinkCupSizeDialog.DrinkCupSizeDialogListener,
+class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
+    DrinkCupSizeDialog.DrinkCupSizeDialogListener,
     OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener {
 
     private lateinit var preferences: SharedPreferences
@@ -172,7 +173,8 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
                 show(preferencesFragment)
             }
             R.id.action_update_user_info -> {
-                findNavController(R.id.nav_host_fragment).navigate(R.id.nav_login_form)
+                val loginFormFragment = LoginFormFragment()
+                show(loginFormFragment)
             }
         }
         isInMenu = true
@@ -209,11 +211,19 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener, Dri
      */
     override fun addWaterIntakeToDatabase() {
         realm.beginTransaction()
-        val waterIntake: WaterIntake = realm.createObject<WaterIntake>((realm.where<WaterIntake>().findAll().size) + 1)
+        val waterIntake: WaterIntake =
+            realm.createObject<WaterIntake>((realm.where<WaterIntake>().findAll().size) + 1)
         waterIntake.intakeAmount = realm.where<UserInfo>().findFirst()?.drinkCupSize!!
         waterIntake.time = Calendar.getInstance().time
         waterIntake.iconId = getCupIcon(waterIntake.intakeAmount)
         realm.commitTransaction()
+    }
+
+    private fun calculateWaterConsumption() {
+        //var weight
+        //var exerciserTime
+
+
     }
 
     /**

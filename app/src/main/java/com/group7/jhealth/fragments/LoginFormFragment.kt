@@ -80,6 +80,7 @@ class LoginFormFragment : Fragment() {
             }
         }
         oKButton.setOnClickListener {
+            //TODO: 2 Fragments are overlapping when pressed OK.
             updateDatabase()
             navController.navigate(R.id.action_global_navigate_to_home_fragment)
         }
