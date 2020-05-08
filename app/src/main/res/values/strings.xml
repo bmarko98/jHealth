@@ -36,7 +36,10 @@
     <string name="sleep_time">Wake up and sleep time:</string>
     <string name="information">Information</string>
     <string name="skip">Skip</string>
-    <string name="minutes">Workout duration: %d minutes</string>
+    <string name="workout_duration">Workout duration</string>
+    <string name="workout_duration_minutes">Workout duration: %d minutes</string>
+    <!-- workout_duration_minutes triggers a warning in lit. There is no need for plurals since
+    there is no other language supported other than english-->
 
     <!--WorkoutPlan-->
     <string name="select_workout_plan">Select Workout Plan</string>
