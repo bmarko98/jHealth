@@ -30,12 +30,13 @@ import java.util.*
  */
 class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
     DrinkCupSizeDialog.DrinkCupSizeDialogListener,
-    OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener {
+    OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener, LoginFormFragment.LoginFormFragmentListener {
 
     private lateinit var preferences: SharedPreferences
     private lateinit var preferencesEditor: SharedPreferences.Editor
     private lateinit var realm: Realm
     private var isInMenu = false
+    private lateinit var loginFormFragment: LoginFormFragment
 
     /**
      * Perform initialization of all fragments.
@@ -173,7 +174,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
                 show(preferencesFragment)
             }
             R.id.action_update_user_info -> {
-                val loginFormFragment = LoginFormFragment()
+                loginFormFragment = LoginFormFragment()
                 show(loginFormFragment)
             }
         }
@@ -219,13 +220,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         realm.commitTransaction()
     }
 
-    private fun calculateWaterConsumption() {
-        //var weight
-        //var exerciserTime
-
-
-    }
-
     /**
      * Chooses the correct cup icon based on user input
      * @param intakeAmount selected amount of water intake
@@ -262,5 +256,72 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
     override fun onDestroy() {
         realm.close()
         super.onDestroy()
+    }
+
+    /**
+     * updates Realm with user's input
+     * name
+     * age
+     * weight
+     * wakeupTime
+     * sleepTime
+     * workoutDuration
+     */
+    override fun updateUserInfoDatabase(
+        name: String,
+        age: Int,
+        gender: String,
+        weight: Int,
+        wakeUpTime: Date,
+        sleepTime: Date,
+        workoutDuration: Int
+    ) {
+        realm.beginTransaction()
+
+        val user: UserInfo? = if (realm.where<UserInfo>().findFirst() != null) {
+            realm.where<UserInfo>().findFirst()
+        } else {
+            realm.createObject<UserInfo>((realm.where<UserInfo>().findAll().size) + 1)
+            realm.where<UserInfo>().findFirst()
+        }
+        user?.name = name
+        user?.age = age
+        user?.gender = gender
+        user?.weight = weight
+        user?.wakeUpTime = wakeUpTime
+        user?.sleepTime = sleepTime
+        user?.workoutDuration = workoutDuration
+        realm.commitTransaction()
+    }
+
+    /**
+     * updates user interface of LoginFormFragment
+     */
+    override fun updateUserInfoUI() {
+        displayUserInfo()
+    }
+
+    /**
+     * gathers user data from Realm
+     * name
+     * age
+     * weight
+     * wakeupTime
+     * sleepTime
+     */
+    private fun displayUserInfo() {
+        if (realm.where<UserInfo>().findFirst() != null) {
+            val user: UserInfo? = realm.where<UserInfo>().findFirst()
+
+            loginFormFragment.displayUserInfo(
+                user!!.name,
+                user.age,
+                user.gender,
+                user.weight,
+                user.wakeUpTime!!,
+                user.sleepTime!!,
+                user.workoutDuration
+            )
+        }
     }
 }

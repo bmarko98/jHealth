@@ -2,18 +2,19 @@ package com.group7.jhealth.fragments
 
 import android.annotation.SuppressLint
 import android.app.TimePickerDialog
+import android.content.Context
+import android.icu.text.DateTimePatternGenerator.PatternInfo.OK
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.group7.jhealth.*
 import com.group7.jhealth.database.UserInfo
 import io.realm.Realm
-import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.fragment_login_form.*
 import java.text.SimpleDateFormat
@@ -23,7 +24,6 @@ import java.util.*
 /**
  * Class for setting up the Login Form
  * @property dateFormat initialized to a SimpleDataFormat
- * @property realm default instance of Realm
  * @property name initialized to empty string
  * @property age initialized to 0
  * @property gender initialized to empty string
@@ -36,8 +36,6 @@ class LoginFormFragment : Fragment() {
 
     @SuppressLint("SimpleDateFormat")
     private val dateFormat = SimpleDateFormat(SIMPLE_DATE_FORMAT_TIME_PATTERN)
-
-    private var realm = Realm.getDefaultInstance()
     private var name = ""
     private var age = 0
     private var gender = "" //empty string means other or, the user skipped the form
@@ -45,6 +43,8 @@ class LoginFormFragment : Fragment() {
     private var wakeUpTime: Date = dateFormat.parse(DEFAULT_WAKE_UP_TIME)
     private var sleepTime: Date = dateFormat.parse(DEFAULT_SLEEP_UP_TIME)
     private var workoutDuration = 0
+    private lateinit var listener: LoginFormFragmentListener
+
 
     /**
      * Called to have the fragment instantiate its user interface view.
@@ -71,22 +71,32 @@ class LoginFormFragment : Fragment() {
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val navController = findNavController()
+
+        listener.updateUserInfoUI()
+
+        nameEditText.doOnTextChanged { text, _, _, _ ->
+            name = text.toString()
+            updateDatabase()
+        }
+
+        ageEditText.doOnTextChanged { text, _, _, _ ->
+            age = Integer.parseInt(text.toString())
+            updateDatabase()
+        }
+
+        weightEditText.doOnTextChanged { text, _, _, _ ->
+            weight = Integer.parseInt(text.toString())
+            updateDatabase()
+        }
 
         genderRadioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.femaleRadioButton -> gender = KEY_GENDER_FEMALE
                 R.id.maleRadioButton -> gender = KEY_GENDER_MALE
             }
-        }
-        oKButton.setOnClickListener {
-            //TODO: 2 Fragments are overlapping when pressed OK.
             updateDatabase()
-            navController.navigate(R.id.action_global_navigate_to_home_fragment)
         }
-        skipButton.setOnClickListener {
-            navController.navigate(R.id.action_global_navigate_to_home_fragment)
-        }
+
         wakeUpTimeTextView.setOnClickListener {
             getTimeFromUser(wakeUpTimeTextView)
         }
@@ -98,7 +108,7 @@ class LoginFormFragment : Fragment() {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 // Write code to perform some action when progress is changed.
                 workoutDuration = seekBar.progress
-                workoutDurationTextView.text=getString(R.string.minutes, workoutDuration)
+                workoutDurationTextView.text = getString(R.string.workout_duration_minutes, workoutDuration)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -107,10 +117,9 @@ class LoginFormFragment : Fragment() {
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 // Write code to perform some action when touch is stopped.
-
+                updateDatabase()
             }
         })
-        displayUserInfo()
     }
 
     /**
@@ -122,55 +131,41 @@ class LoginFormFragment : Fragment() {
      * sleepTime
      */
     private fun updateDatabase() {
-        name = nameEditText.text.toString()
-        if (ageEditText.text.toString().isNotBlank())
-            age = Integer.parseInt(ageEditText.text.toString())
-        if (weightEditText.text.toString().isNotBlank())
-            weight = Integer.parseInt(weightEditText.text.toString())
-        if (wakeUpTimeTextView.text.toString().isNotBlank())
-            wakeUpTime = dateFormat.parse(wakeUpTimeTextView.text.toString())
-        if (sleepTimeTextView.text.toString().isNotBlank())
-            sleepTime = dateFormat.parse(sleepTimeTextView.text.toString())
-
-        realm.beginTransaction()
-
-        val user: UserInfo? = if (realm.where<UserInfo>().findFirst() != null) {
-            realm.where<UserInfo>().findFirst()
-        } else {
-            realm.createObject<UserInfo>((realm.where<UserInfo>().findAll().size) + 1)
-            realm.where<UserInfo>().findFirst()
-        }
-        user?.name = name
-        user?.age = age
-        user?.gender = gender
-        user?.weight = weight
-        user?.wakeUpTime = wakeUpTime
-        user?.sleepTime = sleepTime
-        user?.workoutDuration = workoutDuration
-        realm.commitTransaction()
+        listener.updateUserInfoDatabase(name, age, gender, weight, wakeUpTime, sleepTime, workoutDuration)
     }
 
     /**
-     * if Database is non-empty
      * display User's input values for the given parameters
      */
-    private fun displayUserInfo() {
-        if (realm.where<UserInfo>().findFirst() != null) {
-            val user: UserInfo? = realm.where<UserInfo>().findFirst()
+    fun displayUserInfo(
+        name: String,
+        age: Int,
+        gender: String,
+        weight: Int,
+        wakeUpTime: Date,
+        sleepTime: Date,
+        workoutDuration: Int
+    ) {
+        this.name = name
+        this.age = age
+        this.gender = gender
+        this.weight = weight
+        this.weight = weight
+        this.wakeUpTime = wakeUpTime
+        this.sleepTime = sleepTime
+        this.workoutDuration = workoutDuration
 
-            nameEditText.setText(user?.name)
-            ageEditText.setText(user?.age.toString())
-            when (user?.gender) {
-                KEY_GENDER_FEMALE -> femaleRadioButton.isChecked = true
-                KEY_GENDER_MALE -> maleRadioButton.isChecked = true
-            }
-            weightEditText.setText(user?.weight.toString())
-            wakeUpTimeTextView.text = dateFormat.format(user?.wakeUpTime)
-            sleepTimeTextView.text = dateFormat.format(user?.sleepTime)
-            workoutDuration = user?.workoutDuration!!
-            workoutDurationSeekBar.progress = workoutDuration
-            workoutDurationTextView.text=getString(R.string.minutes, workoutDuration)
+        nameEditText.setText(name)
+        ageEditText.setText(age.toString())
+        when (gender) {
+            KEY_GENDER_FEMALE -> femaleRadioButton.isChecked = true
+            KEY_GENDER_MALE -> maleRadioButton.isChecked = true
         }
+        weightEditText.setText(weight.toString())
+        wakeUpTimeTextView.text = dateFormat.format(wakeUpTime)
+        sleepTimeTextView.text = dateFormat.format(sleepTime)
+        workoutDurationSeekBar.progress = workoutDuration
+        workoutDurationTextView.text = getString(R.string.workout_duration_minutes, workoutDuration)
     }
 
     /**
@@ -184,6 +179,12 @@ class LoginFormFragment : Fragment() {
             calendar.set(Calendar.HOUR_OF_DAY, hour)
             calendar.set(Calendar.MINUTE, minute)
             textView.text = dateFormat.format(calendar.time)
+
+            when (textView.id) {
+                R.id.wakeUpTimeTextView -> wakeUpTime = dateFormat.parse(textView.text.toString())
+                R.id.sleepTimeTextView -> sleepTime = dateFormat.parse(textView.text.toString())
+            }
+            updateDatabase()
         }
         TimePickerDialog(
             context,
@@ -195,11 +196,33 @@ class LoginFormFragment : Fragment() {
     }
 
     /**
-     * Called when the fragment is no longer in use.  This is called
-     * after {@link #onStop()} and before {@link #onDetach()}.
+     * called once the fragment is associated with its activity.
+     * @param context
      */
-    override fun onDestroy() {
-        realm.close()
-        super.onDestroy()
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            listener = context as LoginFormFragmentListener
+        } catch (err: ClassCastException) {
+            throw ClassCastException(("$context must implement LoginFormFragmentListener"))
+        }
+    }
+
+    /**
+     * implemented in MainActivity
+     */
+    interface LoginFormFragmentListener {
+        fun updateUserInfoDatabase(
+            name: String,
+            age: Int,
+            gender: String,
+            weight: Int,
+            wakeUpTime: Date,
+            sleepTime: Date,
+            workoutDuration: Int
+        )
+
+        fun updateUserInfoUI()
     }
 }

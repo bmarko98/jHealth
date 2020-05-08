@@ -30,12 +30,10 @@
     <string name="gender">What is your gender?</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="OK">OK</string>
     <string name="what_do_you_weight">What do you weight?</string>
     <string name="weight">Weight</string>
     <string name="sleep_time">Wake up and sleep time:</string>
     <string name="information">Information</string>
-    <string name="skip">Skip</string>
     <string name="workout_duration">Workout duration</string>
     <string name="workout_duration_minutes">Workout duration: %d minutes</string>
     <!-- workout_duration_minutes triggers a warning in lit. There is no need for plurals since
