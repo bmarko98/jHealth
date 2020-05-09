@@ -63,7 +63,7 @@ class DrinkCupSizeDialog : DialogFragment() {
             cupSizeNumberPicker.displayedValues = pickerValues
             cupSizeNumberPicker.value = pickerValues.indexOf("250")
 
-            cupSizeNumberPicker.setOnValueChangedListener { picker, oldVal, newVal ->
+            cupSizeNumberPicker.setOnValueChangedListener { _, _, newVal ->
                 chosenSize = pickerValues[newVal].toInt()
 
                 when (chosenSize) {
@@ -86,7 +86,7 @@ class DrinkCupSizeDialog : DialogFragment() {
             }
 
             builder.setMessage(getString(R.string.ml))
-                .setPositiveButton(R.string.ok) { dialog, id ->
+                .setPositiveButton(R.string.ok) { _, _ ->
                     if (isCustom)
                         chosenSize = customCupSizeEditText.text.toString().toInt()
                     listener.drinkCupSizeDialogListener(chosenSize)

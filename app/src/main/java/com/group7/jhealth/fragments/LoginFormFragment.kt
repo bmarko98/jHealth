@@ -175,7 +175,7 @@ class LoginFormFragment : Fragment() {
     private fun getTimeFromUser(textView: TextView) {
         val calendar = Calendar.getInstance()
 
-        val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+        val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
             calendar.set(Calendar.HOUR_OF_DAY, hour)
             calendar.set(Calendar.MINUTE, minute)
             textView.text = dateFormat.format(calendar.time)
