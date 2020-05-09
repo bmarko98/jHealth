@@ -151,6 +151,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
             R.id.waterTrackerTextView -> {
                 val waterTrackerFragment = WaterTrackerFragment()
                 waterTrackerFragment.updateIntakeHistory(realm.where<WaterIntake>().findAll())
+                waterTrackerFragment.setWaterIntakeTargetBarMax(calculateWaterConsumption())
                 show(waterTrackerFragment)
             }
             R.id.workoutPlanTextView -> {
@@ -323,5 +324,23 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
                 user.workoutDuration
             )
         }
+    }
+
+    /**
+     * calculates daily water consumption target
+     */
+    private fun calculateWaterConsumption(): Double {
+        var consumptionInLitre: Double = 0.0
+
+        if (realm.where<UserInfo>().findFirst() != null) {
+            val user: UserInfo? = realm.where<UserInfo>().findFirst()
+
+            consumptionInLitre = (user!!.weight / 23) + (WATER_NEED_FOR_ONE_MINUTE_EXERCISE * user.workoutDuration)
+
+            if (user.gender == KEY_GENDER_MALE)
+                consumptionInLitre += 1    //Men need more water than woman.
+        }
+        /*Age is not that important*/
+        return consumptionInLitre
     }
 }
