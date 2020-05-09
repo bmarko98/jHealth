@@ -2,6 +2,7 @@ package com.group7.jhealth.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,7 @@ interface OnIntakeLongClickListener {
  * @property listener of WaterTrackerFragmentListener
  * @property intakeHistory initialized to null
  * @property realm instance of Realm
+ * @property intakeTarget represent the daily water intake target
  */
 class WaterTrackerFragment : Fragment() {
 
@@ -33,6 +35,7 @@ class WaterTrackerFragment : Fragment() {
     private lateinit var listener: WaterTrackerFragmentListener
     private var intakeHistory: MutableList<WaterIntake>? = null
     private lateinit var realm: Realm
+    private var intakeTarget: Double = 0.0
 
     /**
      * Called to have the fragment instantiate its user interface view.
@@ -66,6 +69,8 @@ class WaterTrackerFragment : Fragment() {
         waterIntakeHistoryRecyclerView.adapter = waterIntakeHistoryRecyclerViewAdapter
         intakeHistory?.let { waterIntakeHistoryRecyclerViewAdapter.updateData(it) }
 
+        updateWaterIntakeTargetBar()
+
         addDrinkingCupButton.setOnClickListener {
             listener.onAddDrinkingCupButtonClicked()
         }
@@ -73,6 +78,8 @@ class WaterTrackerFragment : Fragment() {
         addIntakeButton.setOnClickListener {
             listener.addWaterIntakeToDatabase()
             intakeHistory?.let { it1 -> waterIntakeHistoryRecyclerViewAdapter.updateData(it1) }
+
+            updateWaterIntakeTargetBar()
         }
     }
 
@@ -82,6 +89,32 @@ class WaterTrackerFragment : Fragment() {
      */
     fun updateIntakeHistory(intakeHistory: MutableList<WaterIntake>) {
         this.intakeHistory = intakeHistory
+    }
+
+    /**
+     * updates the target
+     *  @param targetInLitre water consumtion target in liters
+     */
+    fun setWaterIntakeTargetBarMax(targetInLitre: Double) {
+        waterIntakeTargetBar.max = targetInLitre.toInt()
+
+        Log.e("target", targetInLitre.toInt().toString())
+    }
+
+    /**
+     * updates the Water Intake Target Bar from intake history
+     */
+    private fun updateWaterIntakeTargetBar() {
+        var consumedWaterInLiter: Int = 0
+
+        for (i in 0 until intakeHistory!!.size) {
+            consumedWaterInLiter += intakeHistory!![i].intakeAmount
+        }
+        consumedWaterInLiter /= 100
+
+        Log.e("consumed", consumedWaterInLiter.toString())
+
+        waterIntakeTargetBar.progress = consumedWaterInLiter
     }
 
     /**
