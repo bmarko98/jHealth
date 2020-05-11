@@ -65,4 +65,10 @@
     <string name="submit">Submit</string>
     <string name="charts_graphs_stats_percentages_etc">charts, graphs, stats, percentages etc.</string>
     <string name="dash_separator">-</string>
+
+    <string name="channel_name" >jHealthNotificationChannel</string>
+    <string name="channel_description" >jHealth notification channel</string>
+
+    <string name="notification_title" >Health Awarer</string>
+    <string name="notification_message" >What have you done for yourself in this past hour?</string>
 </resources>

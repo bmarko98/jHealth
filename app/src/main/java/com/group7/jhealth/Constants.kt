@@ -13,3 +13,6 @@ const val DEFAULT_WAKE_UP_TIME: String = "09:00"
 const val DEFAULT_SLEEP_UP_TIME: String = "21:00"
 
 const val REALM_CONFIG_FILE_NAME: String = "jhealth.realm"
+
+const val CHANNEL_ID: String = "notificationChannel"
+const val NOTIFICATION_ID = 3

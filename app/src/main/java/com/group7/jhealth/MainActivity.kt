@@ -1,5 +1,9 @@
 package com.group7.jhealth
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +23,7 @@ import io.realm.RealmConfiguration
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import java.util.*
+
 
 /**
  * Main Activity class
@@ -98,6 +103,30 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
             preferencesEditor.apply()
             findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_navigate_to_login_form_fragment)
         }
+
+        triggerHourlyNotification()
+    }
+
+    /**
+     * Trigger hourly notifications.
+     *
+     */
+    private fun triggerHourlyNotification() {
+        /*
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = System.currentTimeMillis()
+        calendar[Calendar.HOUR_OF_DAY] = 6
+        calendar[Calendar.MINUTE] = 14
+        calendar[Calendar.SECOND] = 1
+        */
+        val notifyIntent = Intent(this, BroadcastReceiver::class.java)
+        val pendingIntent =
+            PendingIntent.getBroadcast(this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP, /*calendar.timeInMillis*/ System.currentTimeMillis(),
+            AlarmManager.INTERVAL_HOUR, pendingIntent
+        )
     }
 
     /**
@@ -330,7 +359,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
      * calculates daily water consumption target
      */
     private fun calculateWaterConsumption(): Double {
-        var consumptionInLitre: Double = 0.0
+        var consumptionInLitre = 0.0
 
         if (realm.where<UserInfo>().findFirst() != null) {
             val user: UserInfo? = realm.where<UserInfo>().findFirst()
