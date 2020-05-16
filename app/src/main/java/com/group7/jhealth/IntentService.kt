@@ -10,8 +10,8 @@ import androidx.core.app.NotificationManagerCompat
 class MyNewIntentService : IntentService("IntentService") {
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.ok)
-            val descriptionText = getString(R.string.ok)
+            val name = getString(R.string.channel_name)
+            val descriptionText = getString(R.string.channel_description)
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
