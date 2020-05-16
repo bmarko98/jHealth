@@ -40,21 +40,15 @@
     there is no other language supported other than english-->
 
     <!--WorkoutPlan-->
-    <string name="select_workout_plan">Select Workout Plan</string>
-    <string name="select_workout_type">Select workout type</string>
-    <string name="home_workout">Home Workout</string>
-    <string name="gym_workout">Gym Workout</string>
-    <string name="biking">Biking</string>
-    <string name="sports">Sports</string>
-    <string name="walking">Walking</string>
-    <string name="running">Running</string>
-    <string name="swimming">Swimming</string>
-    <string name="select_additional_cardio_activity">Select additional cardio activity</string>
-    <string name="select_workout_intensity">Select workout intensity</string>
-    <string name="beginner_2_4_workouts_per_week">Beginner (2–4 workouts per week)</string>
-    <string name="medium_4_6_workouts_per_week">Medium (4–6 workouts per week)</string>
-    <string name="professional_6_workouts_per_week">Professional (6+ workouts per week)</string>
-    <string name="start_working_out">Start Working Out</string>
+    <string name="ABS">ABS</string>
+    <string name="back">Back</string>
+    <string name="biceps">Biceps</string>
+    <string name="calf">Calf</string>
+    <string name="chest">Chest</string>
+    <string name="forearms">Forearms</string>
+    <string name="legs">Legs</string>
+    <string name="shoulders">Shoulders</string>
+    <string name="triceps">Triceps</string>
 
     <!--WaterTracker-->
     <string name="drink_target">Drink target:</string>
