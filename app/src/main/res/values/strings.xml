@@ -66,9 +66,12 @@
     <string name="charts_graphs_stats_percentages_etc">charts, graphs, stats, percentages etc.</string>
     <string name="dash_separator">-</string>
 
+    <!--Status bar notification-->
     <string name="channel_name" >jHealthNotificationChannel</string>
     <string name="channel_description" >jHealth notification channel</string>
-
     <string name="notification_title" >Health Awarer</string>
     <string name="notification_message" >What have you done for yourself in this past hour?</string>
+
+    <!--Toast notifications-->
+    <string name="null_database_notification" >Something went wrong :( \nPlease make sure you provide information about yourself using the menu.</string>
 </resources>

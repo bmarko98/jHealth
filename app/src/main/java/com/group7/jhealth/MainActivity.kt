@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -22,6 +23,7 @@ import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
+import java.lang.Exception
 import java.util.*
 
 
@@ -35,7 +37,8 @@ import java.util.*
  */
 class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
     DrinkCupSizeDialog.DrinkCupSizeDialogListener,
-    OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener, LoginFormFragment.LoginFormFragmentListener {
+    OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener,
+    LoginFormFragment.LoginFormFragmentListener {
 
     private lateinit var preferences: SharedPreferences
     private lateinit var preferencesEditor: SharedPreferences.Editor
@@ -62,7 +65,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         preferences = this.getSharedPreferences(SHARED_PREF_FILE, MODE_PRIVATE)
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
-
 
         navView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -103,7 +105,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
             preferencesEditor.apply()
             findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_navigate_to_login_form_fragment)
         }
-
         triggerHourlyNotification()
     }
 
@@ -241,13 +242,17 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
      * updates the Database with the selected water intake
      */
     override fun addWaterIntakeToDatabase() {
-        realm.beginTransaction()
-        val waterIntake: WaterIntake =
-            realm.createObject<WaterIntake>((realm.where<WaterIntake>().findAll().size) + 1)
-        waterIntake.intakeAmount = realm.where<UserInfo>().findFirst()?.drinkCupSize!!
-        waterIntake.time = Calendar.getInstance().time
-        waterIntake.iconId = getCupIcon(waterIntake.intakeAmount)
-        realm.commitTransaction()
+        try {
+            realm.beginTransaction()
+            val waterIntake: WaterIntake =
+                realm.createObject<WaterIntake>((realm.where<WaterIntake>().findAll().size) + 1)
+            waterIntake.intakeAmount = realm.where<UserInfo>().findFirst()?.drinkCupSize!!
+            waterIntake.time = Calendar.getInstance().time
+            waterIntake.iconId = getCupIcon(waterIntake.intakeAmount)
+            realm.commitTransaction()
+        } catch (err: Exception) {
+            Toast.makeText(applicationContext, getString(R.string.null_database_notification), Toast.LENGTH_SHORT).show()
+        }
     }
 
     /**
@@ -364,7 +369,8 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         if (realm.where<UserInfo>().findFirst() != null) {
             val user: UserInfo? = realm.where<UserInfo>().findFirst()
 
-            consumptionInLitre = (user!!.weight / 23) + (WATER_NEED_FOR_ONE_MINUTE_EXERCISE * user.workoutDuration)
+            consumptionInLitre =
+                (user!!.weight / 23) + (WATER_NEED_FOR_ONE_MINUTE_EXERCISE * user.workoutDuration)
 
             if (user.gender == KEY_GENDER_MALE)
                 consumptionInLitre += 1    //Men need more water than woman.
