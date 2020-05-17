@@ -33,7 +33,7 @@ class WaterTrackerFragment : Fragment() {
     private lateinit var waterIntakeHistoryRecyclerViewAdapter: WaterIntakeHistoryRecyclerViewAdapter
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var listener: WaterTrackerFragmentListener
-    private var intakeHistory: MutableList<WaterIntake>? = null
+    private var intakeHistory: ArrayList<WaterIntake>? = null
     private lateinit var realm: Realm
     private var intakeTarget: Double = 0.0
 
@@ -60,6 +60,8 @@ class WaterTrackerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        this.intakeHistory=requireArguments().getParcelableArrayList("eben")
+
         waterIntakeTargetBar.scaleY = WATER_INTAKE_TARGET_BAR_HEIGHT
         realm = Realm.getDefaultInstance()
 
@@ -77,7 +79,9 @@ class WaterTrackerFragment : Fragment() {
 
         addIntakeButton.setOnClickListener {
             listener.addWaterIntakeToDatabase()
-            intakeHistory?.let { it1 -> waterIntakeHistoryRecyclerViewAdapter.updateData(it1) }
+            //intakeHistory?.let { it1 -> waterIntakeHistoryRecyclerViewAdapter.updateData(it1) }
+
+            waterIntakeHistoryRecyclerViewAdapter.updateData(this.intakeHistory!!)
 
             updateWaterIntakeTargetBar()
         }
@@ -88,7 +92,7 @@ class WaterTrackerFragment : Fragment() {
      *  @param intakeHistory list that collects selected water Intake amount
      */
     fun updateIntakeHistory(intakeHistory: MutableList<WaterIntake>) {
-        this.intakeHistory = intakeHistory
+        //this.intakeHistory = intakeHistory
     }
 
     /**

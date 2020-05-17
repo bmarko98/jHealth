@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat
  */
 class WaterIntakeHistoryRecyclerViewAdapter(var context: Context) : RecyclerView.Adapter<WaterIntakeHistoryRecyclerViewAdapter.ViewHolder>() {
 
-    var intakeHistory = listOf<WaterIntake>()
+    var intakeHistory = arrayListOf<WaterIntake>()
     @SuppressLint("SimpleDateFormat")
     private val dateFormat = SimpleDateFormat(SIMPLE_DATE_FORMAT_TIME_PATTERN)
     private lateinit var onLongClickCallback: OnIntakeLongClickListener
@@ -81,7 +81,7 @@ class WaterIntakeHistoryRecyclerViewAdapter(var context: Context) : RecyclerView
      * update dataset with the list of water intake
      * @param intakeHistory list that collects water intakes being input
      */
-    fun updateData(intakeHistory: List<WaterIntake>) {
+    fun updateData(intakeHistory: ArrayList<WaterIntake>) {
         this.intakeHistory = intakeHistory
         notifyDataSetChanged()
     }

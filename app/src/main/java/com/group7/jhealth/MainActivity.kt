@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,8 +24,8 @@ import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
-import java.lang.Exception
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -66,6 +67,8 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
+        val navController = findNavController(R.id.nav_host_fragment)
+
         navView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
@@ -81,9 +84,9 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
                     show(sleepMonitoringFragment)
                 }
                 R.id.nav_water_tracker -> {
-                    val waterTrackerFragment = WaterTrackerFragment()
-                    waterTrackerFragment.updateIntakeHistory(realm.where<WaterIntake>().findAll())
-                    show(waterTrackerFragment)
+                    val arraylist: ArrayList<WaterIntake> = ArrayList(realm.where<WaterIntake>().findAll())
+                    val bundle = bundleOf("eben" to arraylist)
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_water_tracker, bundle)
                 }
                 R.id.nav_workout_plan -> {
                     val workoutPlanFragment = WorkoutPlanFragment()
@@ -92,6 +95,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
             }
             true
         }
+
 
         //File(this.filesDir.path).deleteRecursively()
         Realm.init(this)
@@ -179,10 +183,10 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
                 show(sleepMonitoringFragment)
             }
             R.id.waterTrackerTextView -> {
-                val waterTrackerFragment = WaterTrackerFragment()
-                waterTrackerFragment.updateIntakeHistory(realm.where<WaterIntake>().findAll())
-                waterTrackerFragment.setWaterIntakeTargetBarMax(calculateWaterConsumption())
-                show(waterTrackerFragment)
+                //val waterTrackerFragment = WaterTrackerFragment()
+                //waterTrackerFragment.updateIntakeHistory(realm.where<WaterIntake>().findAll())
+                //waterTrackerFragment.setWaterIntakeTargetBarMax(calculateWaterConsumption())
+                //show(waterTrackerFragment)
             }
             R.id.workoutPlanTextView -> {
                 val workoutPlanFragment = WorkoutPlanFragment()

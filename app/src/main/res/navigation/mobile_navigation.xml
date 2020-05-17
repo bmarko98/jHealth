@@ -9,7 +9,11 @@
         android:id="@+id/nav_home"
         android:name="com.group7.jhealth.fragments.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_water_tracker"
+            app:destination="@id/nav_water_tracker" />
+    </fragment>
     <action
         android:id="@+id/action_global_navigate_to_home_fragment"
         app:destination="@id/nav_home" />
