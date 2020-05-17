@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
@@ -26,7 +25,6 @@ import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import java.util.*
 import kotlin.collections.ArrayList
-
 
 /**
  * Main Activity class
@@ -45,7 +43,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
     private lateinit var preferencesEditor: SharedPreferences.Editor
     private lateinit var realm: Realm
     private var isInMenu = false
-    private lateinit var loginFormFragment: LoginFormFragment
 
     /**
      * Perform initialization of all fragments.
@@ -62,41 +59,35 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         preferences = this.getSharedPreferences(SHARED_PREF_FILE, MODE_PRIVATE)
-
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
-
         val navController = findNavController(R.id.nav_host_fragment)
 
         navView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
-                    val homeFragment = HomeFragment()
-                    show(homeFragment)
+                    navController.navigate(R.id.action_global_navigate_to_home_fragment)
                 }
                 R.id.nav_diet_monitoring -> {
-                    val dietMonitoringFragment = DietMonitoringFragment()
-                    show(dietMonitoringFragment)
+                    navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment)
                 }
                 R.id.nav_sleep_monitoring -> {
-                    val sleepMonitoringFragment = SleepMonitoringFragment()
-                    show(sleepMonitoringFragment)
+                    navController.navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment)
                 }
                 R.id.nav_water_tracker -> {
                     val arraylist: ArrayList<WaterIntake> = ArrayList(realm.where<WaterIntake>().findAll())
-                    val bundle = bundleOf("eben" to arraylist)
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_water_tracker, bundle)
+                    val bundle = bundleOf(
+                        KEY_BUNDLE_INTAKE_HISTORY to arraylist,
+                        KEY_BUNDLE_WATER_INTAKE_TARGET to calculateWaterConsumption().toInt()
+                    )
+                    navController.navigate(R.id.action_global_navigate_to_water_tracker_fragment, bundle)
                 }
                 R.id.nav_workout_plan -> {
-                    val workoutPlanFragment = WorkoutPlanFragment()
-                    show(workoutPlanFragment)
+                    navController.navigate(R.id.action_global_navigate_to_workout_plan_fragment)
                 }
             }
             true
         }
-
-
         //File(this.filesDir.path).deleteRecursively()
         Realm.init(this)
         val config = RealmConfiguration.Builder().name(REALM_CONFIG_FILE_NAME).build()
@@ -135,23 +126,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
     }
 
     /**
-     * based on the chosen
-     * @param fragment
-     * the fragment manager navigates to the desired fragment
-     */
-    private fun show(fragment: Fragment) {
-        val fragmentManager = supportFragmentManager
-
-        findViewById<FrameLayout>(R.id.nav_host_fragment).removeAllViews()
-        //workaround for the problem of 2 fragments being on top of each other
-
-        fragmentManager
-            .beginTransaction()
-            .replace(R.id.nav_host_fragment, fragment)
-            .commit()
-    }
-
-    /**
      *Inflate the menu
      *  this adds items to the action bar if it is present.
      * @param menu The options menu in which you place your items.
@@ -173,24 +147,25 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
      * Workout Planning
      */
     override fun onClickListener(clickedItemId: Int) {
+        val navController = findNavController(R.id.nav_host_fragment)
+
         when (clickedItemId) {
             R.id.dietMonitoringTextView -> {
-                val dietMonitoringFragment = DietMonitoringFragment()
-                show(dietMonitoringFragment)
+                navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment)
             }
             R.id.sleepMonitoringTextView -> {
-                val sleepMonitoringFragment = SleepMonitoringFragment()
-                show(sleepMonitoringFragment)
+                navController.navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment)
             }
             R.id.waterTrackerTextView -> {
-                //val waterTrackerFragment = WaterTrackerFragment()
-                //waterTrackerFragment.updateIntakeHistory(realm.where<WaterIntake>().findAll())
-                //waterTrackerFragment.setWaterIntakeTargetBarMax(calculateWaterConsumption())
-                //show(waterTrackerFragment)
+                val arraylist: ArrayList<WaterIntake> = ArrayList(realm.where<WaterIntake>().findAll())
+                val bundle = bundleOf(
+                    KEY_BUNDLE_INTAKE_HISTORY to arraylist,
+                    KEY_BUNDLE_WATER_INTAKE_TARGET to calculateWaterConsumption().toInt()
+                )
+                navController.navigate(R.id.action_global_navigate_to_water_tracker_fragment, bundle)
             }
             R.id.workoutPlanTextView -> {
-                val workoutPlanFragment = WorkoutPlanFragment()
-                show(workoutPlanFragment)
+                navController.navigate(R.id.action_global_navigate_to_workout_plan_fragment)
             }
         }
     }
@@ -203,14 +178,14 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
      *  @see #onCreateOptionsMenu
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+
         when (item.itemId) {
             R.id.action_settings -> {
-                val preferencesFragment = PreferencesFragment()
-                show(preferencesFragment)
+                navController.navigate(R.id.action_global_navigate_to_preferences_fragment)
             }
             R.id.action_update_user_info -> {
-                loginFormFragment = LoginFormFragment()
-                show(loginFormFragment)
+                navController.navigate(R.id.action_global_navigate_to_login_form_fragment)
             }
         }
         isInMenu = true
@@ -254,6 +229,10 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
             waterIntake.time = Calendar.getInstance().time
             waterIntake.iconId = getCupIcon(waterIntake.intakeAmount)
             realm.commitTransaction()
+
+            val arraylist: ArrayList<WaterIntake> = ArrayList(realm.where<WaterIntake>().findAll())
+            val bundle = bundleOf(KEY_BUNDLE_INTAKE_HISTORY to arraylist)
+            getFragmentAsObject()!!.arguments = bundle
         } catch (err: Exception) {
             Toast.makeText(applicationContext, getString(R.string.null_database_notification), Toast.LENGTH_SHORT).show()
         }
@@ -282,8 +261,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
     override fun onBackPressed() {
         if (isInMenu) {
             isInMenu = false
-            val homeFragment = HomeFragment()
-            show(homeFragment)
+            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_navigate_to_home_fragment)
         } else
             super.onBackPressed()
     }
@@ -315,7 +293,11 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         sleepTime: Date,
         workoutDuration: Int
     ) {
-        realm.beginTransaction()
+        try {
+            realm.beginTransaction()
+        } catch (err: Exception) {
+            err.printStackTrace()
+        }
 
         val user: UserInfo? = if (realm.where<UserInfo>().findFirst() != null) {
             realm.where<UserInfo>().findFirst()
@@ -340,6 +322,16 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         displayUserInfo()
     }
 
+    private fun getFragmentAsObject(): Fragment? {
+        val navHost = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        navHost?.let { navFragment ->
+            navFragment.childFragmentManager.primaryNavigationFragment?.let { fragment ->
+                return fragment
+            }
+        }
+        return null
+    }
+
     /**
      * gathers user data from Realm
      * name
@@ -352,15 +344,8 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         if (realm.where<UserInfo>().findFirst() != null) {
             val user: UserInfo? = realm.where<UserInfo>().findFirst()
 
-            loginFormFragment.displayUserInfo(
-                user!!.name,
-                user.age,
-                user.gender,
-                user.weight,
-                user.wakeUpTime!!,
-                user.sleepTime!!,
-                user.workoutDuration
-            )
+            val bundle = bundleOf(KEY_BUNDLE_USER_INFO to user)
+            getFragmentAsObject()!!.arguments = bundle
         }
     }
 

@@ -3,7 +3,6 @@ package com.group7.jhealth.fragments
 import android.annotation.SuppressLint
 import android.app.TimePickerDialog
 import android.content.Context
-import android.icu.text.DateTimePatternGenerator.PatternInfo.OK
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,12 +13,9 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import com.group7.jhealth.*
 import com.group7.jhealth.database.UserInfo
-import io.realm.Realm
-import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.fragment_login_form.*
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 /**
  * Class for setting up the Login Form
@@ -44,7 +40,6 @@ class LoginFormFragment : Fragment() {
     private var sleepTime: Date = dateFormat.parse(DEFAULT_SLEEP_UP_TIME)
     private var workoutDuration = 0
     private lateinit var listener: LoginFormFragmentListener
-
 
     /**
      * Called to have the fragment instantiate its user interface view.
@@ -71,8 +66,8 @@ class LoginFormFragment : Fragment() {
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         listener.updateUserInfoUI()
+        displayUserInfo()
 
         nameEditText.doOnTextChanged { text, _, _, _ ->
             name = text.toString()
@@ -100,23 +95,21 @@ class LoginFormFragment : Fragment() {
         wakeUpTimeTextView.setOnClickListener {
             getTimeFromUser(wakeUpTimeTextView)
         }
+
         sleepTimeTextView.setOnClickListener {
             getTimeFromUser(sleepTimeTextView)
         }
 
         workoutDurationSeekBar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                // Write code to perform some action when progress is changed.
                 workoutDuration = seekBar.progress
                 workoutDurationTextView.text = getString(R.string.workout_duration_minutes, workoutDuration)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
-                // Write code to perform some action when touch is started.
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                // Write code to perform some action when touch is stopped.
                 updateDatabase()
             }
         })
@@ -137,23 +130,22 @@ class LoginFormFragment : Fragment() {
     /**
      * display User's input values for the given parameters
      */
-    fun displayUserInfo(
-        name: String,
-        age: Int,
-        gender: String,
-        weight: Int,
-        wakeUpTime: Date,
-        sleepTime: Date,
-        workoutDuration: Int
-    ) {
-        this.name = name
-        this.age = age
-        this.gender = gender
-        this.weight = weight
-        this.weight = weight
-        this.wakeUpTime = wakeUpTime
-        this.sleepTime = sleepTime
-        this.workoutDuration = workoutDuration
+    private fun displayUserInfo() {
+        val user: UserInfo?
+        try {
+            user = requireArguments().getParcelable(KEY_BUNDLE_USER_INFO) as UserInfo?
+        } catch (err: Exception) {
+            err.printStackTrace()
+            return
+        }
+        this.name = user!!.name
+        this.age = user.age
+        this.gender = user.gender
+        this.weight = user.weight
+        this.weight = user.weight
+        this.wakeUpTime = user.wakeUpTime!!
+        this.sleepTime = user.sleepTime!!
+        this.workoutDuration = user.workoutDuration
 
         nameEditText.setText(name)
         ageEditText.setText(age.toString())

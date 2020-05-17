@@ -16,3 +16,7 @@ const val REALM_CONFIG_FILE_NAME: String = "jhealth.realm"
 
 const val CHANNEL_ID: String = "notificationChannel"
 const val NOTIFICATION_ID = 3
+
+const val KEY_BUNDLE_INTAKE_HISTORY: String = "intakeHistory"
+const val KEY_BUNDLE_USER_INFO: String = "userInfo"
+const val KEY_BUNDLE_WATER_INTAKE_TARGET: String = "waterIntakeTargetBarMax"
