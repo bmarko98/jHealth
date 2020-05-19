@@ -68,4 +68,17 @@
 
     <!--Toast notifications-->
     <string name="null_database_notification" >Something went wrong :( \nPlease make sure you provide information about yourself using the menu.</string>
+
+    <!--ABS Fragment-->
+    <string name="incline_bench_situp">Incline Bench Sit-Ups</string>
+    <string name="hanging_leg_raises">Hanging Leg Raises</string>
+    <string name="dumbbell_side_bends">Dumbbell Side Bends</string>
+    <string name="crunches">Crunches</string>
+    <string name="sit_ups">Sit-Ups</string>
+    <string name="leg_raises">Leg Raises</string>
+    <string name="flat_bench_lying_leg_raise">Flat Bench Lying Leg Raise</string>
+    <string name="seated_jackknife">Seated Jackknife</string>
+    <string name="twisting_hip_raise">Twisting Hip Raise</string>
+    <string name="superman">Superman</string>
+
 </resources>
