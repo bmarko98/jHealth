@@ -9,11 +9,7 @@
         android:id="@+id/nav_home"
         android:name="com.group7.jhealth.fragments.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_nav_home_to_nav_water_tracker"
-            app:destination="@id/nav_water_tracker" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
     <action
         android:id="@+id/action_global_navigate_to_home_fragment"
         app:destination="@id/nav_home" />
@@ -75,9 +71,57 @@
         android:id="@+id/nav_record_entry"
         android:name="com.group7.jhealth.fragments.RecordEntryFragment"
         android:label="@string/diet_monitoring"
-        tools:layout="@layout/fragment_record_entry"/>
+        tools:layout="@layout/fragment_record_entry" />
     <action
         android:id="@+id/action_global_navigate_to_record_entry_fragment"
         app:destination="@id/nav_record_entry" />
+
+    <fragment
+        android:id="@+id/nav_abs_frag"
+        android:name="com.group7.jhealth.fragments.ABSFragment"
+        android:label="@string/ABS"
+        tools:layout="@layout/fragment_abs" />
+
+    <fragment
+        android:id="@+id/nav_back_frag"
+        android:name="com.group7.jhealth.fragments.BackFragment"
+        android:label="@string/back"
+        tools:layout="@layout/fragment_back" />
+
+    <fragment
+        android:id="@+id/nav_biceps_frag"
+        android:name="com.group7.jhealth.fragments.BicepsFragment"
+        android:label="@string/biceps"
+        tools:layout="@layout/fragment_biceps" />
+
+    <fragment
+        android:id="@+id/nav_chest_frag"
+        android:name="com.group7.jhealth.fragments.ChestFragment"
+        android:label="@string/chest"
+        tools:layout="@layout/fragment_chest" />
+
+    <fragment
+        android:id="@+id/nav_forearm_frag"
+        android:name="com.group7.jhealth.fragments.ForearmFragment"
+        android:label="@string/forearms"
+        tools:layout="@layout/fragment_forearm" />
+
+    <fragment
+        android:id="@+id/nav_leg_frag"
+        android:name="com.group7.jhealth.fragments.LegFragment"
+        android:label="@string/legs"
+        tools:layout="@layout/fragment_leg" />
+
+    <fragment
+        android:id="@+id/nav_shoulder_frag"
+        android:name="com.group7.jhealth.fragments.ShoulderFragment"
+        android:label="@string/shoulders"
+        tools:layout="@layout/fragment_shoulder" />
+
+    <fragment
+        android:id="@+id/nav_triceps_frag"
+        android:name="com.group7.jhealth.fragments.TricepsFragment"
+        android:label="@string/triceps"
+        tools:layout="@layout/fragment_triceps" />
 
 </navigation>
