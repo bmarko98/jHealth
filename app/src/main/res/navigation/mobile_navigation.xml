@@ -45,7 +45,32 @@
         android:id="@+id/nav_workout_plan"
         android:name="com.group7.jhealth.fragments.WorkoutPlanFragment"
         android:label="@string/workout_plan"
-        tools:layout="@layout/fragment_workout_plan" />
+        tools:layout="@layout/fragment_workout_plan">
+        <action
+            android:id="@+id/action_nav_workout_plan_to_nav_abs_frag"
+            app:destination="@id/nav_abs_frag" />
+        <action
+            android:id="@+id/action_nav_workout_plan_to_nav_back_frag"
+            app:destination="@id/nav_back_frag" />
+        <action
+            android:id="@+id/action_nav_workout_plan_to_nav_biceps_frag"
+            app:destination="@id/nav_biceps_frag" />
+        <action
+            android:id="@+id/action_nav_workout_plan_to_nav_chest_frag"
+            app:destination="@id/nav_chest_frag" />
+        <action
+            android:id="@+id/action_nav_workout_plan_to_nav_forearm_frag"
+            app:destination="@id/nav_forearm_frag" />
+        <action
+            android:id="@+id/action_nav_workout_plan_to_nav_leg_frag"
+            app:destination="@id/nav_leg_frag" />
+        <action
+            android:id="@+id/action_nav_workout_plan_to_nav_shoulder_frag"
+            app:destination="@id/nav_shoulder_frag" />
+        <action
+            android:id="@+id/action_nav_workout_plan_to_nav_triceps_frag"
+            app:destination="@id/nav_triceps_frag" />
+    </fragment>
     <action
         android:id="@+id/action_global_navigate_to_workout_plan_fragment"
         app:destination="@id/nav_workout_plan" />
