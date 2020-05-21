@@ -1,6 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.HomeFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/squatButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_ripple_effect"
+            android:text="@string/squats"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/anfledLegPressButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_ripple_effect"
+            android:text="@string/angled_leg_press"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/legExtensionButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_ripple_effect"
+            android:text="@string/leg_extension"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/dumbbellLungeButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_ripple_effect"
+            android:text="@string/dumbbell_lunges"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/powerSuatButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_ripple_effect"
+            android:text="@string/power_squats"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>

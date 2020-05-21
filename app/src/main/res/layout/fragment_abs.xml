@@ -32,32 +32,12 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/dumbellSideBendsButton"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/button_ripple_effect"
-            android:text="@string/dumbbell_side_bends"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Button
             android:id="@+id/crunchesButton"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_margin="8dp"
             android:background="@drawable/button_ripple_effect"
             android:text="@string/crunches"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/sitUpsButton"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/button_ripple_effect"
-            android:text="@string/sit_ups"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -71,35 +51,7 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/flatBenchLyingLegRaiseButton"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/button_ripple_effect"
-            android:text="@string/flat_bench_lying_leg_raise"
-            android:textSize="18sp"
-            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/seatedJackKnifeButton"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/button_ripple_effect"
-            android:text="@string/seated_jackknife"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/twistingHipRaiseButton"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/button_ripple_effect"
-            android:text="@string/twisting_hip_raise"
-            android:textSize="18sp"
-            android:textStyle="bold" />
 
         <Button
             android:id="@+id/supermanButton"

@@ -25,7 +25,11 @@ class WorkoutPlanFragment : Fragment() {
      * from a previous saved state as given here.
      * @return Return the View for the fragment's UI, or null.
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_workout_plan, container, false)
     }
 
@@ -36,6 +40,34 @@ class WorkoutPlanFragment : Fragment() {
 
         ABSButton.setOnClickListener {
             navController.navigate(R.id.action_nav_workout_plan_to_nav_abs_frag)
+        }
+
+        backButton.setOnClickListener {
+            navController.navigate(R.id.action_nav_workout_plan_to_nav_back_frag)
+        }
+
+        bicepsButton.setOnClickListener {
+            navController.navigate(R.id.action_nav_workout_plan_to_nav_biceps_frag)
+        }
+
+        chestButton.setOnClickListener {
+            navController.navigate(R.id.action_nav_workout_plan_to_nav_chest_frag)
+        }
+
+        forearmsButton.setOnClickListener {
+            navController.navigate(R.id.action_nav_workout_plan_to_nav_forearm_frag)
+        }
+
+        legsButton.setOnClickListener {
+            navController.navigate(R.id.action_nav_workout_plan_to_nav_leg_frag)
+        }
+
+        shouldersButton.setOnClickListener {
+            navController.navigate(R.id.action_nav_workout_plan_to_nav_shoulder_frag)
+        }
+
+        triceps.setOnClickListener {
+            navController.navigate(R.id.action_nav_workout_plan_to_nav_triceps_frag)
         }
     }
 }

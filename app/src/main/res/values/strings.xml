@@ -80,5 +80,50 @@
     <string name="seated_jackknife">Seated Jackknife</string>
     <string name="twisting_hip_raise">Twisting Hip Raise</string>
     <string name="superman">Superman</string>
+    <!--Back Fragment-->
+    <string name="chin_ups">Chin Ups</string>
+    <string name="dead_lifts">Dead Lifts</string>
+    <string name="lat_pull_downs">Lat Pull-Downs</string>
+    <string name="seated_rows">Seated Rows</string>
+    <string name="one_arm_dumbbell_rows">One Arm Dumbbell Rows</string>
+    <string name="barbell_shrugs">Barbell Shrugs</string>
+    <string name="dumbbell_shrugs">Dumbbell Shrugs</string>
+    <string name="back_extensions">Back Extensions</string>
+    <string name="bent_over_row">Bent Over Row</string>
+    <string name="reverse_chin_ups">Reverse Chin Ups</string>
+    <!--Biceps Fragment-->
+    <string name="curls">Curls</string>
+    <string name="barbell_curls">Barbell Curls</string>
+    <string name="preacher_curls">Preacher Curls</string>
+    <string name="hammer_curls">Hammer Curls</string>
+    <string name="cable_biceps_curl">Cable Biceps Curl</string>
+    <!--Chest Fragment-->
+    <string name="bench_presses">Bench Presses</string>
+    <string name="incline_press">Incline Press</string>
+    <string name="dumbbell_presses">Dumbbell Presses</string>
+    <string name="dumbbell_flys">Dumbbell Flys</string>
+    <string name="dumbbell_pullovers">Dumbbell Pullovers</string>
+    <!--Forearm Fragment-->
+    <string name="wrist_curls">Wrist Curls</string>
+    <string name="dumbbell_wrist_twist">Dumbbell Wrist Twist</string>
+    <string name="standing_wrist_curl">Standing Wrist Curl</string>
+    <!--Leg Fragment-->
+    <string name="squats">Squats</string>
+    <string name="angled_leg_press">Angled Leg Press</string>
+    <string name="leg_extension">Leg Extension</string>
+    <string name="dumbbell_lunges">Dumbbell Lunges</string>
+    <string name="power_squats">Power Squats</string>
+    <!--Shoulder Fragment-->
+    <string name="back_presses">Back Presses</string>
+    <string name="seated_front_presses">Seated Front Presses</string>
+    <string name="seated_dumbbell_presses">Seated Dumbbell Presses</string>
+    <string name="upright_rows">Upright Rows</string>
+    <string name="lateral_raises">Lateral Raises</string>
+    <!--Triceps Fragment-->
+    <string name="close_grip_bench_presses">Close Grip Bench Presses</string>
+    <string name="push_downs">Push Downs</string>
+    <string name="triceps_extensions">Triceps Extensions</string>
+    <string name="triceps_pushdown">Triceps Pushdown</string>
+    <string name="diamond_pushup">Diamond Pushup</string>
 
 </resources>

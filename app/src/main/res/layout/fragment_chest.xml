@@ -1,6 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.HomeFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/benchPressButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_ripple_effect"
+            android:text="@string/bench_presses"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/inclinePressButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_ripple_effect"
+            android:text="@string/incline_press"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/dumbbellPressButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_ripple_effect"
+            android:text="@string/dumbbell_presses"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/dumbbellFlyButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_ripple_effect"
+            android:text="@string/dumbbell_flys"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/dumbbellPulloverButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_ripple_effect"
+            android:text="@string/dumbbell_pullovers"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>
