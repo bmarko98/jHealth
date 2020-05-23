@@ -5,13 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.group7.jhealth.R
+import com.group7.jhealth.database.WaterIntake
+import io.realm.Realm
 
 /**
  * Class For Recording an Entry
  */
 class RecordEntryFragment: Fragment() {
 
+    private lateinit var layoutManager: GridLayoutManager
+    private lateinit var listener: WaterTrackerFragment.WaterTrackerFragmentListener
+    private var intakeHistory: ArrayList<WaterIntake>? = null
+    private lateinit var realm: Realm
+    private var intakeTarget: Double = 0.0
     /**
      * Called to have the fragment instantiate its user interface view.
      * @param inflater The LayoutInflater object that can be used to inflate
