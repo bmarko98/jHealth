@@ -27,6 +27,23 @@ class ABSFragment : Fragment() {
             navController.navigate(R.id.action_nav_abs_frag_to_nav_workout_detail_frag, bundle)
         }
 
+        hangingLegRaises.setOnClickListener {
+            val bundle = bundleOf(KEY_BUNDLE_EXERCISE_IMAGE to R.drawable.hanging_leg_raises)
+            navController.navigate(R.id.action_nav_abs_frag_to_nav_workout_detail_frag, bundle)
+        }
 
+        crunchesButton.setOnClickListener {
+            val bundle = bundleOf(KEY_BUNDLE_EXERCISE_IMAGE to R.drawable.crunches)
+            navController.navigate(R.id.action_nav_abs_frag_to_nav_workout_detail_frag, bundle)
+        }
+
+        legRaisesButton.setOnClickListener {
+            val bundle = bundleOf(KEY_BUNDLE_EXERCISE_IMAGE to R.drawable.leg_raises)
+            navController.navigate(R.id.action_nav_abs_frag_to_nav_workout_detail_frag, bundle)
+        }
+        supermanButton.setOnClickListener {
+            val bundle = bundleOf(KEY_BUNDLE_EXERCISE_IMAGE to R.drawable.superman)
+            navController.navigate(R.id.action_nav_abs_frag_to_nav_workout_detail_frag, bundle)
+        }
     }
 }

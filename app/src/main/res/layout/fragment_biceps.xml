@@ -42,7 +42,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/hammerCurlsButton"
+            android:id="@+id/pushDownsButton"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_margin="8dp"
@@ -52,7 +52,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/cableBicepsCurlButton"
+            android:id="@+id/tricepsExtensionButton"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_margin="8dp"
