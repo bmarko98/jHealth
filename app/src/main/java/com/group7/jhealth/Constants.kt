@@ -20,3 +20,5 @@ const val NOTIFICATION_ID = 3
 const val KEY_BUNDLE_INTAKE_HISTORY: String = "intakeHistory"
 const val KEY_BUNDLE_USER_INFO: String = "userInfo"
 const val KEY_BUNDLE_WATER_INTAKE_TARGET: String = "waterIntakeTargetBarMax"
+const val KEY_BUNDLE_WEIGHT_HISTORY: String = "weightHistory"
+const val KEY_BUNDLE_EXERCISE_IMAGE: String = "exerciseImage"
