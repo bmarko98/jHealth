@@ -40,5 +40,8 @@ class DietMonitoringFragment : Fragment() {
         weightProgressButton.setOnClickListener {
             findNavController().navigate(R.id.action_global_navigate_to_record_entry_fragment)
         }
+        calorieCounterButton.setOnClickListener {
+            findNavController().navigate(R.id.action_global_navigate_to_calorie_counter_fragment)
+        }
     }
 }

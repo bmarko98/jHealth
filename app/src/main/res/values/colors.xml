@@ -6,4 +6,6 @@
 
     <color name="darkBlue">#168DDA</color>
     <color name="lightBlue">#99CBFD</color>
+    <color name="colorPrimaryOff">#FFFFFF</color>
+    <color name="colorPrimary">#99CBFD</color>
 </resources>

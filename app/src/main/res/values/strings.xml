@@ -17,20 +17,23 @@
     <string name="weight_progress">Weight Progress</string>
     <string name="calorie_counter">Calorie Counter</string>
     <string name="healthy_recipes">Healthy Recipes</string>
+    <string name="input_new_food">Input new food</string>
+    <string name="choose_from_list">Choose from list</string>
+    <string name="food_diary">Food Diary</string>
 
     <!--FunctionalityFragment-->
     <string name="diet_monitoring">Diet monitoring</string>
     <string name="workout_plan">Workout plan</string>
 
     <!--PersonalInfoFragment-->
-    <string name="what_is_your_name">What is your name</string>
+    <string name="what_is_your_name">What is your name?</string>
     <string name="name">Name</string>
     <string name="how_old_are_you">How old are you?</string>
     <string name="age">Age</string>
     <string name="gender">What is your gender?</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="what_do_you_weight">What do you weight?</string>
+    <string name="what_do_you_weight">How much do you weigh?</string>
     <string name="weight">Weight</string>
     <string name="sleep_time">Wake up and sleep time:</string>
     <string name="information">Information</string>
@@ -61,13 +64,13 @@
     <string name="dash_separator">-</string>
 
     <!--Status bar notification-->
-    <string name="channel_name" >jHealthNotificationChannel</string>
-    <string name="channel_description" >jHealth notification channel</string>
-    <string name="notification_title" >Health Awarer</string>
-    <string name="notification_message" >What have you done for yourself in this past hour?</string>
+    <string name="channel_name">jHealthNotificationChannel</string>
+    <string name="channel_description">jHealth notification channel</string>
+    <string name="notification_title">Health Awarer</string>
+    <string name="notification_message">What have you done for yourself in this past hour?</string>
 
     <!--Toast notifications-->
-    <string name="null_database_notification" >Something went wrong :( \nPlease make sure you provide information about yourself using the menu.</string>
+    <string name="null_database_notification">Something went wrong :( \nPlease make sure you provide information about yourself using the menu.</string>
 
     <!--ABS Fragment-->
     <string name="incline_bench_situp">Incline Bench Sit-Ups</string>
