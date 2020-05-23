@@ -45,7 +45,7 @@
     <!--WorkoutPlan-->
     <string name="ABS">ABS</string>
     <string name="back">Back</string>
-    <string name="biceps">Biceps</string>
+    <string name="arms">Arms</string>
     <string name="calf">Calf</string>
     <string name="chest">Chest</string>
     <string name="forearms">Forearms</string>
@@ -126,7 +126,7 @@
     <string name="close_grip_bench_presses">Close Grip Bench Presses</string>
     <string name="push_downs">Push Downs</string>
     <string name="triceps_extensions">Triceps Extensions</string>
-    <string name="triceps_pushdown">Triceps Pushdown</string>
+    <string name="triceps_pushdown">Push-Downs</string>
     <string name="diamond_pushup">Diamond Pushup</string>
 
 </resources>

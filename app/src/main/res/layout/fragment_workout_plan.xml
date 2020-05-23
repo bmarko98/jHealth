@@ -38,7 +38,7 @@
             android:layout_height="70dp"
             android:layout_margin="8dp"
             android:background="@drawable/button_ripple_effect"
-            android:text="@string/biceps"
+            android:text="@string/arms"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -52,15 +52,7 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/forearmsButton"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/button_ripple_effect"
-            android:text="@string/forearms"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+
 
         <Button
             android:id="@+id/legsButton"
@@ -79,16 +71,6 @@
             android:layout_margin="8dp"
             android:background="@drawable/button_ripple_effect"
             android:text="@string/shoulders"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/triceps"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/button_ripple_effect"
-            android:text="@string/triceps"
             android:textSize="18sp"
             android:textStyle="bold" />
 

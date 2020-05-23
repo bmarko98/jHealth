@@ -47,7 +47,7 @@
             android:layout_height="70dp"
             android:layout_margin="8dp"
             android:background="@drawable/button_ripple_effect"
-            android:text="@string/hammer_curls"
+            android:text="@string/triceps_pushdown"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -57,7 +57,7 @@
             android:layout_height="70dp"
             android:layout_margin="8dp"
             android:background="@drawable/button_ripple_effect"
-            android:text="@string/cable_biceps_curl"
+            android:text="@string/triceps_extensions"
             android:textSize="18sp"
             android:textStyle="bold" />
 

@@ -54,9 +54,6 @@ class WorkoutPlanFragment : Fragment() {
             navController.navigate(R.id.action_nav_workout_plan_to_nav_chest_frag)
         }
 
-        forearmsButton.setOnClickListener {
-            navController.navigate(R.id.action_nav_workout_plan_to_nav_forearm_frag)
-        }
 
         legsButton.setOnClickListener {
             navController.navigate(R.id.action_nav_workout_plan_to_nav_leg_frag)
@@ -64,10 +61,6 @@ class WorkoutPlanFragment : Fragment() {
 
         shouldersButton.setOnClickListener {
             navController.navigate(R.id.action_nav_workout_plan_to_nav_shoulder_frag)
-        }
-
-        triceps.setOnClickListener {
-            navController.navigate(R.id.action_nav_workout_plan_to_nav_triceps_frag)
         }
     }
 }
