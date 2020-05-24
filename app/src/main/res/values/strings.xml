@@ -128,5 +128,7 @@
     <string name="triceps_extensions">Triceps Extensions</string>
     <string name="triceps_pushdown">Push-Downs</string>
     <string name="diamond_pushup">Diamond Pushup</string>
+    <!--Sleep Monitoring Fragment-->
+    <string name="how_was_your_sleep">How was your sleep?</string>
 
 </resources>
