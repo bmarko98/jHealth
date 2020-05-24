@@ -18,6 +18,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.group7.jhealth.database.UserInfo
 import com.group7.jhealth.database.WaterIntake
 import com.group7.jhealth.database.WeightProgress
+import com.group7.jhealth.database.WorkoutInfo
+import com.group7.jhealth.dialogs.AddWorkoutDialog
 import com.group7.jhealth.dialogs.DrinkCupSizeDialog
 import com.group7.jhealth.fragments.*
 import io.realm.Realm
@@ -38,7 +40,8 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
     DrinkCupSizeDialog.DrinkCupSizeDialogListener,
     OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener,
-    LoginFormFragment.LoginFormFragmentListener, RecordEntryFragment.RecordEntryFragmentListener {
+    LoginFormFragment.LoginFormFragmentListener, RecordEntryFragment.RecordEntryFragmentListener,
+    WorkoutDetail.WorkoutDetailFragmentListener, AddWorkoutDialog.AddWorkoutDialogListener {
 
     private lateinit var preferences: SharedPreferences
     private lateinit var preferencesEditor: SharedPreferences.Editor
@@ -386,6 +389,25 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
             val arraylist: ArrayList<WeightProgress> = ArrayList(realm.where<WeightProgress>().findAll())
             val bundle = bundleOf(KEY_BUNDLE_WEIGHT_HISTORY to arraylist)
             getFragmentAsObject()!!.arguments = bundle
+
+        } catch (err: Exception) {
+            Toast.makeText(applicationContext, getString(R.string.null_database_notification), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onAddWorkoutButtonClicked() {
+        AddWorkoutDialog().show(supportFragmentManager, "")
+    }
+
+    override fun addWorkoutDialogListener(reps: Int, weight: Int) {
+        try {
+            realm.beginTransaction()
+            val weightProgress: WorkoutInfo =
+                realm.createObject<WorkoutInfo>((realm.where<WorkoutInfo>().findAll().size) + 1)
+
+            weightProgress.numberOfReps = reps
+            weightProgress.weightAmount = weight
+            realm.commitTransaction()
 
         } catch (err: Exception) {
             Toast.makeText(applicationContext, getString(R.string.null_database_notification), Toast.LENGTH_SHORT).show()
