@@ -1,20 +1,26 @@
 package com.group7.jhealth.fragments
 
 //import kotlinx.android.synthetic.main.fragment_sleep_monitoring
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-//import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.group7.jhealth.R
+import com.group7.jhealth.database.SleepTracker
 import io.realm.Realm
+
 
 /**
  * Class for Setting up the Sleep Monitoring option
  */
 class SleepMonitoringFragment : Fragment() {
 
+    private lateinit var layoutManager: GridLayoutManager
+    private lateinit var listener: SleepMonitoringFragmentListener
+    private var sleepHistory: ArrayList<SleepTracker>? = null
     private lateinit var realm: Realm
 
     /**
@@ -45,5 +51,18 @@ class SleepMonitoringFragment : Fragment() {
 /*        .setOnClickListener {
             findNavController().navigate(R.id.action_global_navigate_to_record_entry_fragment)
         }*/
+    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            listener = context as SleepMonitoringFragmentListener
+        } catch (err: ClassCastException) {
+            throw ClassCastException(("$context must implement SleepMonitoringFragmentListener"))
+        }
+    }
+
+    interface SleepMonitoringFragmentListener {
+
     }
 }
