@@ -39,6 +39,7 @@ class LoginFormFragment : Fragment() {
     private var wakeUpTime: Date = dateFormat.parse(DEFAULT_WAKE_UP_TIME)
     private var sleepTime: Date = dateFormat.parse(DEFAULT_SLEEP_UP_TIME)
     private var workoutDuration = 0
+    private var isTakingMed = false
     private lateinit var listener: LoginFormFragmentListener
 
     /**
@@ -113,6 +114,11 @@ class LoginFormFragment : Fragment() {
                 updateDatabase()
             }
         })
+
+        medToggleButton.setOnCheckedChangeListener { _, isChecked ->
+            isTakingMed = isChecked
+            updateDatabase()
+        }
     }
 
     /**
@@ -124,7 +130,7 @@ class LoginFormFragment : Fragment() {
      * sleepTime
      */
     private fun updateDatabase() {
-        listener.updateUserInfoDatabase(name, age, gender, weight, wakeUpTime, sleepTime, workoutDuration)
+        listener.updateUserInfoDatabase(name, age, gender, weight, wakeUpTime, sleepTime, workoutDuration, isTakingMed)
     }
 
     /**
@@ -146,6 +152,7 @@ class LoginFormFragment : Fragment() {
         this.wakeUpTime = user.wakeUpTime!!
         this.sleepTime = user.sleepTime!!
         this.workoutDuration = user.workoutDuration
+        this.isTakingMed = user.isTakingMed
 
         nameEditText.setText(name)
         ageEditText.setText(age.toString())
@@ -158,6 +165,8 @@ class LoginFormFragment : Fragment() {
         sleepTimeTextView.text = dateFormat.format(sleepTime)
         workoutDurationSeekBar.progress = workoutDuration
         workoutDurationTextView.text = getString(R.string.workout_duration_minutes, workoutDuration)
+
+        medToggleButton.isChecked=isTakingMed
     }
 
     /**
@@ -212,7 +221,8 @@ class LoginFormFragment : Fragment() {
             weight: Int,
             wakeUpTime: Date,
             sleepTime: Date,
-            workoutDuration: Int
+            workoutDuration: Int,
+            isTakingMed: Boolean
         )
 
         fun updateUserInfoUI()

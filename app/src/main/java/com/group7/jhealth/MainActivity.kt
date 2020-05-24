@@ -68,12 +68,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         preferences = this.getSharedPreferences(SHARED_PREF_FILE, MODE_PRIVATE)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
-
-        with(navController.graph) {
-            val argument = NavArgument.Builder().setDefaultValue("occcc").build()
-            get(startDestination).addArgument("kk", argument)
-        }
-
         //File(this.filesDir.path).deleteRecursively()
         Realm.init(this)
         val config = RealmConfiguration.Builder().name(REALM_CONFIG_FILE_NAME).build()
@@ -141,7 +135,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         val alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP, /*calendar.timeInMillis*/ System.currentTimeMillis(),
-            AlarmManager.INTERVAL_HOUR, pendingIntent
+            6000/*AlarmManager.INTERVAL_HOUR*/, pendingIntent
         )
     }
 
@@ -326,7 +320,8 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         weight: Int,
         wakeUpTime: Date,
         sleepTime: Date,
-        workoutDuration: Int
+        workoutDuration: Int,
+        isTakingMed: Boolean
     ) {
         try {
             realm.beginTransaction()
@@ -347,6 +342,14 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         user?.wakeUpTime = wakeUpTime
         user?.sleepTime = sleepTime
         user?.workoutDuration = workoutDuration
+        user?.isTakingMed = isTakingMed
+
+        preferencesEditor = preferences.edit()
+        preferencesEditor.putBoolean(KEY_PREF_IS_USR_TAKING_MED, isTakingMed)
+        preferencesEditor.apply()
+
+        Log.e("isTakingMed", isTakingMed.toString())
+
         realm.commitTransaction()
     }
 

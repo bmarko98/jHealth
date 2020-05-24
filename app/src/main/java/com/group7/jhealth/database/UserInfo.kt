@@ -12,8 +12,9 @@ import java.util.*
  * variables are initialized
  */
 
-open class UserInfo() : RealmObject(), Parcelable{
-    @PrimaryKey var id: Int = 0
+open class UserInfo() : RealmObject(), Parcelable {
+    @PrimaryKey
+    var id: Int = 0
     var name: String = ""
     var age: Int = 0
     var gender: String = ""
@@ -22,6 +23,7 @@ open class UserInfo() : RealmObject(), Parcelable{
     var sleepTime: Date? = Date()
     var drinkCupSize: Int = 250
     var workoutDuration: Int = 0
+    var isTakingMed: Boolean = false
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()
@@ -31,6 +33,7 @@ open class UserInfo() : RealmObject(), Parcelable{
         weight = parcel.readInt()
         drinkCupSize = parcel.readInt()
         workoutDuration = parcel.readInt()
+        isTakingMed = parcel.readByte() != 0.toByte()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -41,6 +44,7 @@ open class UserInfo() : RealmObject(), Parcelable{
         parcel.writeInt(weight)
         parcel.writeInt(drinkCupSize)
         parcel.writeInt(workoutDuration)
+        parcel.writeByte(if (isTakingMed) 1 else 0)
     }
 
     override fun describeContents(): Int {

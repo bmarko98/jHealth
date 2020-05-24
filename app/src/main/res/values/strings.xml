@@ -3,16 +3,13 @@
     <string name="action_settings">Settings</string>
     <string name="update_user_info">Update user info</string>
     <string name="settings">Settings</string>
-
     <string name="menu_home">Home</string>
     <string name="menu_diet_monitoring">Diet Monitoring</string>
     <string name="menu_sleep_monitoring">Sleep Monitoring</string>
     <string name="menu_water_tracker">Water Tracker</string>
-
     <!--Global-->
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-
     <!--DietMonitoring-->
     <string name="weight_progress">Weight Progress</string>
     <string name="calorie_counter">Calorie Counter</string>
@@ -20,11 +17,9 @@
     <string name="input_new_food">Input new food</string>
     <string name="choose_from_list">Choose from list</string>
     <string name="food_diary">Food Diary</string>
-
     <!--FunctionalityFragment-->
     <string name="diet_monitoring">Diet monitoring</string>
     <string name="workout_plan">Workout plan</string>
-
     <!--PersonalInfoFragment-->
     <string name="what_is_your_name">What is your name?</string>
     <string name="name">Name</string>
@@ -38,10 +33,12 @@
     <string name="sleep_time">Wake up and sleep time:</string>
     <string name="information">Information</string>
     <string name="workout_duration">Workout duration</string>
+    <string name="are_you_taking_any_medication">Are you taking any medication?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
     <string name="workout_duration_minutes">Workout duration: %d minutes</string>
     <!-- workout_duration_minutes triggers a warning in lit. There is no need for plurals since
     there is no other language supported other than english-->
-
     <!--WorkoutPlan-->
     <string name="ABS">ABS</string>
     <string name="back">Back</string>
@@ -52,7 +49,6 @@
     <string name="legs">Legs</string>
     <string name="shoulders">Shoulders</string>
     <string name="triceps">Triceps</string>
-
     <!--WaterTracker-->
     <string name="drink_target">Drink target:</string>
     <!--WaterTracker Menu-->
@@ -62,16 +58,14 @@
     <string name="submit">Submit</string>
     <string name="charts_graphs_stats_percentages_etc">charts, graphs, stats, percentages etc.</string>
     <string name="dash_separator">-</string>
-
     <!--Status bar notification-->
     <string name="channel_name">jHealthNotificationChannel</string>
     <string name="channel_description">jHealth notification channel</string>
     <string name="notification_title">Health Awarer</string>
     <string name="notification_message">What have you done for yourself in this past hour?</string>
-
+    <string name="notification_message_med">Don\'t forget to take your medication!</string>
     <!--Toast notifications-->
     <string name="null_database_notification">Something went wrong :( \nPlease make sure you provide information about yourself using the menu.</string>
-
     <!--ABS Fragment-->
     <string name="incline_bench_situp">Incline Bench Sit-Ups</string>
     <string name="hanging_leg_raises">Hanging Leg Raises</string>
