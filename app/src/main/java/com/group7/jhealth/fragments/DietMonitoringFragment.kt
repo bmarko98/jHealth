@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.group7.jhealth.KEY_BUNDLE_CALORIE_HISTORY
 import com.group7.jhealth.KEY_BUNDLE_WEIGHT_HISTORY
 import com.group7.jhealth.R
-import com.group7.jhealth.database.CalorieIntake
 import com.group7.jhealth.database.WeightProgress
 import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.fragment_diet_monitoring.*
@@ -34,7 +32,6 @@ class DietMonitoringFragment : Fragment() {
      */
 
     private var weightHistory: ArrayList<WeightProgress>? = null
-    private var calorieHistory: ArrayList<CalorieIntake>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,7 +47,6 @@ class DietMonitoringFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         try {
             this.weightHistory = requireArguments().getParcelableArrayList(KEY_BUNDLE_WEIGHT_HISTORY)
-            this.calorieHistory = requireArguments().getParcelableArrayList(KEY_BUNDLE_CALORIE_HISTORY)
         } catch (err: Exception) {
             err.printStackTrace()
         }
@@ -60,11 +56,11 @@ class DietMonitoringFragment : Fragment() {
             findNavController().navigate(R.id.action_nav_diet_monitoring_to_nav_record_entry, bundle)
         }
         calorieCounterButton.setOnClickListener {
-            val bundle = bundleOf(KEY_BUNDLE_CALORIE_HISTORY to calorieHistory)
-            findNavController().navigate(R.id.action_nav_diet_monitoring_to_nav_calorie_counter, bundle)
+            findNavController().navigate(R.id.action_nav_diet_monitoring_to_nav_calorie_counter)
         }
         healthyRecipesButton.setOnClickListener {
             findNavController().navigate((R.id.action_nav_diet_monitoring_to_nav_healthy_recipe))
         }
+
     }
 }

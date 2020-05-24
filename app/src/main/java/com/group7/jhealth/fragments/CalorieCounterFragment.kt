@@ -59,8 +59,13 @@ class CalorieCounterFragment : Fragment() {
 
         newfood_button.setOnClickListener {
             listener.onAddCalorieButtonClicked()
-            this.calorieIntakeHistory = requireArguments().getParcelableArrayList(KEY_BUNDLE_CALORIE_HISTORY)
-            calorieIntakeHistory?.let { it1 -> calorieRecyclerViewAdapter.updateData(it1) }
+            try {
+                this.calorieIntakeHistory = requireArguments().getParcelableArrayList(KEY_BUNDLE_CALORIE_HISTORY)
+                calorieIntakeHistory?.let { it1 -> calorieRecyclerViewAdapter.updateData(it1) }
+            } catch (err: Exception) {
+                err.printStackTrace()
+            }
+
         }
     }
 

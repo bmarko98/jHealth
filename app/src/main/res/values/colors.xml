@@ -8,4 +8,5 @@
     <color name="lightBlue">#99CBFD</color>
     <color name="colorPrimaryOff">#FFFFFF</color>
     <color name="colorPrimary">#99CBFD</color>
+    <color name="sub_title">#99E8CC</color>
 </resources>

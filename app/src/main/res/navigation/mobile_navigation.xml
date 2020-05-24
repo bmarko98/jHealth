@@ -32,7 +32,16 @@
     <action
         android:id="@+id/action_global_navigate_to_diet_monitoring_fragment"
         app:destination="@id/nav_diet_monitoring" />
-
+    <fragment
+        android:id="@+id/nav_healthy_recipe1"
+        android:name="com.group7.jhealth.fragments.HealthyRecipeFood1Fragment"
+        android:label="@string/diet_monitoring"
+        tools:layout="@layout/fragment_healthy_recipe_food1" />
+    <fragment
+        android:id="@+id/nav_healthy_recipe2"
+        android:name="com.group7.jhealth.fragments.HealthyRecipeFood2Fragment"
+        android:label="@string/diet_monitoring"
+        tools:layout="@layout/fragment_healthy_recipe_food2" />
     <fragment
         android:id="@+id/nav_sleep_monitoring"
         android:name="com.group7.jhealth.fragments.SleepMonitoringFragment"
@@ -103,7 +112,14 @@
         android:id="@+id/nav_healthy_recipe"
         android:name="com.group7.jhealth.fragments.HealthyRecipesFragment"
         android:label="@string/diet_monitoring"
-        tools:layout="@layout/fragment_healthy_recipes" />
+        tools:layout="@layout/fragment_healthy_recipes" >
+        <action
+            android:id="@+id/action_nav_healthy_recipe_to_nav_healthy_recipe2"
+            app:destination="@id/nav_healthy_recipe2"/>
+        <action
+            android:id="@+id/action_nav_healthy_recipe_to_nav_healthy_recipe1"
+            app:destination="@id/nav_healthy_recipe1" />
+    </fragment>
     <fragment
         android:id="@+id/nav_abs_frag"
         android:name="com.group7.jhealth.fragments.ABSFragment"

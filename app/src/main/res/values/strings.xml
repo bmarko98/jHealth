@@ -137,4 +137,33 @@
     <string name="statistics">Statistics</string>
     <string name="calorie_intake">Calorie Intake</string>
     <string name="lifted_weight_average">Lifted Weight Average</string>
+
+    <string name="healthy_recipe_food_shrimp_instruction_title">Instruction: </string>
+    <string name="healthy_recipe_food_shrimp_instruction1">1. Combine oil, chili powder, garlic, lime juice and zest, and salt in a small bowl.  Whisk well.  Pour over shrimp and let marinate for 20 minutes.</string>
+    <string name="healthy_recipe_food_shrimp_instruction2">2. Preheat grill.  Thread shrimp onto skewers and grill over medium heat, about 2 minutes per side, just until shrimp turn pink.</string>
+    <string name="healthy_recipe_food_shrimp_instruction3">3. Sprinkle with chopped cilantro and serve.</string>
+    <string name="healthy_recipe_food_shrimp_ingredient_title">Ingredients: </string>
+    <string name="healthy_recipe_food_shrimp_ingredient1">1 lb raw deveined shrimp</string>
+    <string name="healthy_recipe_food_shrimp_ingredient2">1 tbsp olive or avocado oil</string>
+    <string name="healthy_recipe_food_shrimp_ingredient3">1 tsp chili powder</string>
+    <string name="healthy_recipe_food_shrimp_ingredient4">1 tsp minced garlic about 3 cloves</string>
+    <string name="healthy_recipe_food_shrimp_ingredient5">1 lime and lemon zest</string>
+    <string name="healthy_recipe_food_shrimp_ingredient6">1 tsp sea salt</string>
+    <string name="healthy_recipe_food_shrimp_ingredient7">chopped fresh cilantro</string>
+    <string name="healthy_recipe_food_shrimp_timer">Prep Time: 20 minutes | | Cook Time: 5 minutes </string>
+
+    <string name="healthy_recipe_food2_salmon_instruction_title">Instruction: </string>
+    <string name="healthy_recipe_food2_salmon_instruction1">1. Mix together olive oil, lemon zest, the juice of the lemon, garlic, salt and pepper. Place the salmon fillet in a zip lock baggy.\n\n</string>
+    <string name="healthy_recipe_food2_salmon_instruction2">2. Pour the marinade into the bag with the salmon, and let it marinade for about 20 minutes.</string>
+    <string name="healthy_recipe_food2_salmon_instruction3">3. Once marinated, place the fish in a foil lined baking sheet, and bake in a 400F oven for about 15–20 minutes.</string>
+    <string name="healthy_recipe_food2_salmon_ingredient_title">Ingredients: </string>
+    <string name="healthy_recipe_food2_salmon_ingredient1">1 lb fresh salmon</string>
+    <string name="healthy_recipe_food2_salmon_ingredient2">2 tbsp olive oil</string>
+    <string name="healthy_recipe_food2_salmon_ingredient3">1 tsp lemon zest</string>
+    <string name="healthy_recipe_food2_salmon_ingredient4">2 tbsp lemon juice</string>
+    <string name="healthy_recipe_food2_salmon_ingredient5">2 cloves of garlic</string>
+    <string name="healthy_recipe_food2_salmon_ingredient6">1 tsp sea salt</string>
+    <string name="healthy_recipe_food2_salmon_ingredient7">1 tsp of pepper</string>
+    <string name="healthy_recipe_food2_salmon_timer">Prep Time: 20 minutes | | Cook Time: 15 minutes </string>
+
 </resources>
