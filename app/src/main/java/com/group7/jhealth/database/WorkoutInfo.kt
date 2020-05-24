@@ -17,12 +17,14 @@ open class WorkoutInfo() : Parcelable, RealmObject() {
         numberOfReps = parcel.readInt()
     }
 
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
-        TODO("Not yet implemented")
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeInt(weightAmount)
+        parcel.writeInt(numberOfReps)
     }
 
     override fun describeContents(): Int {
-        TODO("Not yet implemented")
+        return 0
     }
 
     companion object CREATOR : Parcelable.Creator<WorkoutInfo> {
