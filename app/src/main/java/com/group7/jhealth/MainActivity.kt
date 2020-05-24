@@ -41,7 +41,8 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
     OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener,
     LoginFormFragment.LoginFormFragmentListener, RecordEntryFragment.RecordEntryFragmentListener,
     WorkoutDetail.WorkoutDetailFragmentListener, AddWorkoutDialog.AddWorkoutDialogListener,
-    CalorieCounterFragment.CalorieCounterFragmentListener, AddCalorieDialog.AddCalorieDialogListener {
+    CalorieCounterFragment.CalorieCounterFragmentListener, AddCalorieDialog.AddCalorieDialogListener,
+    SleepMonitoringFragment.SleepMonitoringFragmentListener {
 
     private lateinit var preferences: SharedPreferences
     private lateinit var preferencesEditor: SharedPreferences.Editor
@@ -89,7 +90,9 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
                     navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment, bundle)
                 }
                 R.id.nav_sleep_monitoring -> {
-                    navController.navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment)
+                    val sleepData = realm.where<SleepData>().findFirst()
+                    val bundle = bundleOf(KEY_BUNDLE_SLEEP_DATA to sleepData)
+                    navController.navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment, bundle)
                 }
                 R.id.nav_water_tracker -> {
                     val arraylist: ArrayList<WaterIntake> = ArrayList(realm.where<WaterIntake>().findAll())
@@ -173,7 +176,9 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
                 navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment, bundle)
             }
             R.id.sleepMonitoringButton -> {
-                navController.navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment)
+                val sleepData = realm.where<SleepData>().findFirst()
+                val bundle = bundleOf(KEY_BUNDLE_SLEEP_DATA to sleepData)
+                navController.navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment, bundle)
             }
             R.id.waterTrackerButton -> {
                 val arraylist: ArrayList<WaterIntake> = ArrayList(realm.where<WaterIntake>().findAll())
@@ -211,7 +216,8 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
                     KEY_BUNDLE_INTAKE_HISTORY to waterIntakeList,
                     KEY_BUNDLE_CALORIE_HISTORY to calorieIntakeList,
                     KEY_BUNDLE_WEIGHT_HISTORY to weightProgress,
-                    KEY_BUNDLE_AVERAGE_WEIGHT_LIFTED to calculateAverageWeightLifted()
+                    KEY_BUNDLE_AVERAGE_WEIGHT_LIFTED to calculateAverageWeightLifted(),
+                    KEY_BUNDLE_SLEEP_DATA to realm.where<SleepData>().findFirst()
                 )
                 navController.navigate(R.id.action_global_navigate_to_stats_fragment, bundle)
             }
@@ -480,5 +486,24 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
             sumOfWeights += workoutInfo[i].weightAmount
         }
         return sumOfWeights / workoutInfo.size.toDouble()
+    }
+
+    override fun updateDatabase(happyCtr: Int, mehCtr: Int, sadCtr: Int) {
+        try {
+            realm.beginTransaction()
+        } catch (err: Exception) {
+            err.printStackTrace()
+        }
+
+        val user: SleepData? = if (realm.where<SleepData>().findFirst() != null) {
+            realm.where<SleepData>().findFirst()
+        } else {
+            realm.createObject<SleepData>((realm.where<SleepData>().findAll().size) + 1)
+            realm.where<SleepData>().findFirst()
+        }
+        user?.happySleepCtr = happyCtr
+        user?.mehSleepCtr = mehCtr
+        user?.sadSleepButton = sadCtr
+        realm.commitTransaction()
     }
 }
