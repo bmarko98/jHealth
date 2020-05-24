@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
      * @see #onPostCreate
      */
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         preferences = this.getSharedPreferences(SHARED_PREF_FILE, MODE_PRIVATE)
