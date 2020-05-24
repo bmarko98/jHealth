@@ -58,5 +58,8 @@ class DietMonitoringFragment : Fragment() {
         calorieCounterButton.setOnClickListener {
             findNavController().navigate(R.id.action_global_navigate_to_calorie_counter_fragment)
         }
+        healthyRecipesButton.setOnClickListener {
+            findNavController().navigate((R.id.action_nav_diet_monitoring_to_nav_healthy_recipe))
+        }
     }
 }
