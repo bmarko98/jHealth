@@ -1,21 +1,18 @@
 package com.group7.jhealth.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.group7.jhealth.KEY_BUNDLE_INTAKE_HISTORY
-import com.group7.jhealth.KEY_BUNDLE_WATER_INTAKE_TARGET
-import com.group7.jhealth.R
-import com.group7.jhealth.WATER_INTAKE_TARGET_BAR_HEIGHT
+import com.group7.jhealth.*
 import com.group7.jhealth.adapters.WaterIntakeHistoryRecyclerViewAdapter
 import com.group7.jhealth.database.WaterIntake
-import io.realm.Realm
 import kotlinx.android.synthetic.main.fragment_water_intake.*
-import java.lang.Exception
 
 interface OnIntakeLongClickListener {
     fun onLongClickWaterIntakeRecyclerViewItem(intake: WaterIntake)
@@ -36,6 +33,7 @@ class WaterTrackerFragment : Fragment() {
     private lateinit var listener: WaterTrackerFragmentListener
     private var intakeHistory: ArrayList<WaterIntake>? = null
     private var intakeTarget: Double = 0.0
+    private lateinit var preferences: SharedPreferences
 
     /**
      * Called to have the fragment instantiate its user interface view.
@@ -85,6 +83,13 @@ class WaterTrackerFragment : Fragment() {
             this.intakeHistory = requireArguments().getParcelableArrayList(KEY_BUNDLE_INTAKE_HISTORY)
             intakeHistory?.let { it1 -> waterIntakeHistoryRecyclerViewAdapter.updateData(it1) }
         }
+
+        clearButton.setOnClickListener {
+            listener.clearDatabase()
+            this.intakeHistory = arrayListOf()
+            intakeHistory?.let { it1 -> waterIntakeHistoryRecyclerViewAdapter.updateData(it1) }
+            waterIntakeTargetBar.progress=0
+        }
     }
 
     /**
@@ -128,5 +133,6 @@ class WaterTrackerFragment : Fragment() {
     interface WaterTrackerFragmentListener {
         fun onAddDrinkingCupButtonClicked()
         fun addWaterIntakeToDatabase()
+        fun clearDatabase()
     }
 }
