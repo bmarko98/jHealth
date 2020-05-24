@@ -12,7 +12,12 @@
         tools:layout="@layout/fragment_home" />
     <action
         android:id="@+id/action_global_navigate_to_home_fragment"
-        app:destination="@id/nav_home" />
+        app:destination="@id/nav_home">
+    <argument
+        android:name="myArg"
+        app:argType="string"
+        android:defaultValue="oc" />
+    </action>
 
     <fragment
         android:id="@+id/nav_diet_monitoring"

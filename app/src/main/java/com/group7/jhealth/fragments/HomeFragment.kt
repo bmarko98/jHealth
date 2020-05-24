@@ -6,8 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.group7.jhealth.KEY_BUNDLE_CALORIE_HISTORY
+import com.group7.jhealth.KEY_BUNDLE_INTAKE_HISTORY
+import com.group7.jhealth.KEY_BUNDLE_WEIGHT_HISTORY
 import com.group7.jhealth.R
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.lang.Exception
 
 /**
  * Class for Setting up the Home Page
@@ -39,20 +46,20 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dietMonitoringTextView.setOnClickListener {
-            listener.onClickListener(R.id.dietMonitoringTextView)
+        dietMonitoringButton.setOnClickListener {
+            listener.onClickListener(R.id.dietMonitoringButton)
         }
 
-        sleepMonitoringTextView.setOnClickListener {
-            listener.onClickListener(R.id.sleepMonitoringTextView)
+        sleepMonitoringButton.setOnClickListener {
+            listener.onClickListener(R.id.sleepMonitoringButton)
         }
 
-        waterTrackerTextView.setOnClickListener {
-            listener.onClickListener(R.id.waterTrackerTextView)
+        waterTrackerButton.setOnClickListener {
+            listener.onClickListener(R.id.waterTrackerButton)
         }
 
-        workoutPlanTextView.setOnClickListener {
-            listener.onClickListener(R.id.workoutPlanTextView)
+        workoutPlanButton.setOnClickListener {
+            listener.onClickListener(R.id.workoutPlanButton)
         }
     }
 

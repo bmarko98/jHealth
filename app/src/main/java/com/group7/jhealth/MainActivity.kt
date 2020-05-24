@@ -13,7 +13,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavArgument
 import androidx.navigation.findNavController
+import androidx.navigation.get
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.group7.jhealth.database.*
 import com.group7.jhealth.dialogs.AddCalorieDialog
@@ -66,6 +68,12 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         preferences = this.getSharedPreferences(SHARED_PREF_FILE, MODE_PRIVATE)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
+
+        with(navController.graph) {
+            val argument = NavArgument.Builder().setDefaultValue("occcc").build()
+            get(startDestination).addArgument("kk", argument)
+        }
+
         //File(this.filesDir.path).deleteRecursively()
         Realm.init(this)
         val config = RealmConfiguration.Builder().name(REALM_CONFIG_FILE_NAME).build()
@@ -75,6 +83,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         navView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
+                    val bundle = bundleOf("eben" to "occcc")
                     navController.navigate(R.id.action_global_navigate_to_home_fragment)
                 }
                 R.id.nav_diet_monitoring -> {
@@ -103,6 +112,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
             }
             true
         }
+
 
         if (preferences.getBoolean(KEY_PREF_IS_FIRST_LAUNCH, true)) {
             preferencesEditor = preferences.edit()
@@ -160,7 +170,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         val navController = findNavController(R.id.nav_host_fragment)
 
         when (clickedItemId) {
-            R.id.dietMonitoringTextView -> {
+            R.id.dietMonitoringButton -> {
                 val arraylistWeightProgress: ArrayList<WeightProgress> = ArrayList(realm.where<WeightProgress>().findAll())
                 val arraylistCalorieIntake: ArrayList<CalorieIntake> = ArrayList(realm.where<CalorieIntake>().findAll())
                 val bundle = bundleOf(
@@ -169,10 +179,10 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
                 )
                 navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment, bundle)
             }
-            R.id.sleepMonitoringTextView -> {
+            R.id.sleepMonitoringButton -> {
                 navController.navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment)
             }
-            R.id.waterTrackerTextView -> {
+            R.id.waterTrackerButton -> {
                 val arraylist: ArrayList<WaterIntake> = ArrayList(realm.where<WaterIntake>().findAll())
                 val bundle = bundleOf(
                     KEY_BUNDLE_INTAKE_HISTORY to arraylist,
@@ -180,7 +190,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
                 )
                 navController.navigate(R.id.action_global_navigate_to_water_tracker_fragment, bundle)
             }
-            R.id.workoutPlanTextView -> {
+            R.id.workoutPlanButton -> {
                 navController.navigate(R.id.action_global_navigate_to_workout_plan_fragment)
             }
         }
@@ -442,5 +452,11 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         } catch (err: Exception) {
             Toast.makeText(applicationContext, getString(R.string.null_database_notification), Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun eben()
+    {
+        val bundle = bundleOf("eben" to "occcc")
+        getFragmentAsObject()!!.arguments = bundle
     }
 }

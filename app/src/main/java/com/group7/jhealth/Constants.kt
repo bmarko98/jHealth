@@ -24,3 +24,5 @@ const val KEY_BUNDLE_WATER_INTAKE_TARGET: String = "waterIntakeTargetBarMax"
 const val KEY_BUNDLE_WEIGHT_HISTORY: String = "weightHistory"
 const val KEY_BUNDLE_CALORIE_HISTORY: String = "calorieHistory"
 const val KEY_BUNDLE_EXERCISE_IMAGE: String = "exerciseImage"
+
+const val homefragshit: String = "asdf"
