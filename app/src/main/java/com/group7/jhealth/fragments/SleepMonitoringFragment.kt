@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.group7.jhealth.KEY_BUNDLE_INTAKE_HISTORY
 import com.group7.jhealth.R
 import com.group7.jhealth.database.SleepTracker
 import io.realm.Realm
@@ -47,11 +46,6 @@ class SleepMonitoringFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        try {
-            this.sleepHistory = requireArguments().getParcelableArrayList(KEY_BUNDLE_INTAKE_HISTORY)
-        } catch (err: Exception) {
-            err.printStackTrace()
-        }
 
 /*        .setOnClickListener {
             findNavController().navigate(R.id.action_global_navigate_to_record_entry_fragment)
