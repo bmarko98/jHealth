@@ -18,7 +18,11 @@
         android:id="@+id/nav_diet_monitoring"
         android:name="com.group7.jhealth.fragments.DietMonitoringFragment"
         android:label="@string/menu_diet_monitoring"
-        tools:layout="@layout/fragment_diet_monitoring" />
+        tools:layout="@layout/fragment_diet_monitoring" >
+        <action
+            android:id="@+id/action_nav_diet_monitoring_to_nav_record_entry"
+            app:destination="@id/nav_record_entry" />
+    </fragment>
     <action
         android:id="@+id/action_global_navigate_to_diet_monitoring_fragment"
         app:destination="@id/nav_diet_monitoring" />
@@ -91,9 +95,7 @@
         android:name="com.group7.jhealth.fragments.RecordEntryFragment"
         android:label="@string/diet_monitoring"
         tools:layout="@layout/fragment_record_entry" />
-    <action
-        android:id="@+id/action_global_navigate_to_record_entry_fragment"
-        app:destination="@id/nav_record_entry" />
+
     <fragment
         android:id="@+id/nav_calorie_counter"
         android:name="com.group7.jhealth.fragments.CalorieCounterFragment"

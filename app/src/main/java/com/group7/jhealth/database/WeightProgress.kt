@@ -8,9 +8,10 @@ import java.io.Serializable
 import java.util.*
 
 open class WeightProgress() : Parcelable, RealmObject(){
-
+    @PrimaryKey
     var id: Int = 0
     var weightAmount: Int = 0
+    var time: Date = Date()
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()
@@ -23,7 +24,7 @@ open class WeightProgress() : Parcelable, RealmObject(){
     }
 
     override fun describeContents(): Int {
-        return 0;
+        return 0
     }
 
     companion object CREATOR : Parcelable.Creator<WeightProgress> {

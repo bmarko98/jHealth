@@ -17,6 +17,7 @@ import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.group7.jhealth.database.UserInfo
 import com.group7.jhealth.database.WaterIntake
+import com.group7.jhealth.database.WeightProgress
 import com.group7.jhealth.dialogs.DrinkCupSizeDialog
 import com.group7.jhealth.fragments.*
 import io.realm.Realm
@@ -37,7 +38,7 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
     DrinkCupSizeDialog.DrinkCupSizeDialogListener,
     OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener,
-    LoginFormFragment.LoginFormFragmentListener {
+    LoginFormFragment.LoginFormFragmentListener, RecordEntryFragment.RecordEntryFragmentListener {
 
     private lateinit var preferences: SharedPreferences
     private lateinit var preferencesEditor: SharedPreferences.Editor
@@ -62,6 +63,11 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         preferences = this.getSharedPreferences(SHARED_PREF_FILE, MODE_PRIVATE)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
+        //File(this.filesDir.path).deleteRecursively()
+        Realm.init(this)
+        val config = RealmConfiguration.Builder().name(REALM_CONFIG_FILE_NAME).build()
+        Realm.setDefaultConfiguration(config)
+        realm = Realm.getDefaultInstance()
 
         navView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -69,7 +75,9 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
                     navController.navigate(R.id.action_global_navigate_to_home_fragment)
                 }
                 R.id.nav_diet_monitoring -> {
-                    navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment)
+                    val arraylist: ArrayList<WeightProgress> = ArrayList(realm.where<WeightProgress>().findAll())
+                    val bundle = bundleOf(KEY_BUNDLE_WEIGHT_HISTORY to arraylist)
+                    navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment, bundle)
                 }
                 R.id.nav_sleep_monitoring -> {
                     navController.navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment)
@@ -88,11 +96,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
             }
             true
         }
-        //File(this.filesDir.path).deleteRecursively()
-        Realm.init(this)
-        val config = RealmConfiguration.Builder().name(REALM_CONFIG_FILE_NAME).build()
-        Realm.setDefaultConfiguration(config)
-        realm = Realm.getDefaultInstance()
 
         if (preferences.getBoolean(KEY_PREF_IS_FIRST_LAUNCH, true)) {
             preferencesEditor = preferences.edit()
@@ -151,7 +154,9 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
 
         when (clickedItemId) {
             R.id.dietMonitoringTextView -> {
-                navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment)
+                val arraylist: ArrayList<WeightProgress> = ArrayList(realm.where<WeightProgress>().findAll())
+                val bundle = bundleOf(KEY_BUNDLE_WEIGHT_HISTORY to arraylist)
+                navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment, bundle)
             }
             R.id.sleepMonitoringTextView -> {
                 navController.navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment)
@@ -366,5 +371,24 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         }
         /*Age is not that important*/
         return consumptionInLitre
+    }
+
+    override fun addWeightProgressToDatabase(weight: Int) {
+        try {
+            realm.beginTransaction()
+            val weightProgress: WeightProgress =
+                realm.createObject<WeightProgress>((realm.where<WeightProgress>().findAll().size) + 1)
+
+            weightProgress.time = Calendar.getInstance().time
+            weightProgress.weightAmount = weight
+            realm.commitTransaction()
+
+            val arraylist: ArrayList<WeightProgress> = ArrayList(realm.where<WeightProgress>().findAll())
+            val bundle = bundleOf(KEY_BUNDLE_WEIGHT_HISTORY to arraylist)
+            getFragmentAsObject()!!.arguments = bundle
+
+        } catch (err: Exception) {
+            Toast.makeText(applicationContext, getString(R.string.null_database_notification), Toast.LENGTH_SHORT).show()
+        }
     }
 }

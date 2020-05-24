@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.group7.jhealth.R
-import com.group7.jhealth.SIMPLE_DATE_FORMAT_TIME_PATTERN
+import com.group7.jhealth.SIMPLE_DATE_FORMAT_TIME_PATTERN_HR_MIN
 import com.group7.jhealth.database.WaterIntake
 import com.group7.jhealth.fragments.OnIntakeLongClickListener
 import kotlinx.android.synthetic.main.recyler_view_layout_water_intake_history.view.*
@@ -20,7 +20,7 @@ class WaterIntakeHistoryRecyclerViewAdapter(var context: Context) : RecyclerView
 
     var intakeHistory = arrayListOf<WaterIntake>()
     @SuppressLint("SimpleDateFormat")
-    private val dateFormat = SimpleDateFormat(SIMPLE_DATE_FORMAT_TIME_PATTERN)
+    private val dateFormat = SimpleDateFormat(SIMPLE_DATE_FORMAT_TIME_PATTERN_HR_MIN)
     private lateinit var onLongClickCallback: OnIntakeLongClickListener
 
     /**
