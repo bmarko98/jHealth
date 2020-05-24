@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".main.MainActivity">
 
     <item
         android:id="@+id/action_update_user_info"
-        android:orderInCategory="100"
+        android:icon="@drawable/ic_update_database"
         android:title="@string/update_user_info"
-        app:showAsAction="never" />
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction"/>
+
+    <item
+        android:id="@+id/action_statistics"
+        android:icon="@drawable/ic_stats"
+        android:title="@string/statistics"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
 
 </menu>
+
+

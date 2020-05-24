@@ -210,6 +210,18 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
             R.id.action_update_user_info -> {
                 navController.navigate(R.id.action_global_navigate_to_login_form_fragment)
             }
+            R.id.action_statistics -> {
+                val waterIntakeList: ArrayList<WaterIntake> = ArrayList(realm.where<WaterIntake>().findAll())
+                val calorieIntakeList: ArrayList<CalorieIntake> = ArrayList(realm.where<CalorieIntake>().findAll())
+                val weightProgress: ArrayList<WeightProgress> = ArrayList(realm.where<WeightProgress>().findAll())
+                val bundle = bundleOf(
+                    KEY_BUNDLE_INTAKE_HISTORY to waterIntakeList,
+                    KEY_BUNDLE_CALORIE_HISTORY to calorieIntakeList,
+                    KEY_BUNDLE_WEIGHT_HISTORY to weightProgress,
+                    KEY_BUNDLE_AVERAGE_WEIGHT_LIFTED to calculateAverageWeightLifted()
+                )
+                navController.navigate(R.id.action_global_navigate_to_stats_fragment, bundle)
+            }
         }
         isInMenu = true
         return super.onOptionsItemSelected(item)
@@ -454,9 +466,14 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         }
     }
 
-    fun eben()
-    {
-        val bundle = bundleOf("eben" to "occcc")
-        getFragmentAsObject()!!.arguments = bundle
+    private fun calculateAverageWeightLifted(): Double {
+        var sumOfWeights = 0
+        val workoutInfo: ArrayList<WorkoutInfo> = ArrayList(realm.where<WorkoutInfo>().findAll())
+
+        for (i in workoutInfo.indices) {
+            sumOfWeights += workoutInfo[i].weightAmount
+        }
+
+        return sumOfWeights / workoutInfo.size.toDouble()
     }
 }

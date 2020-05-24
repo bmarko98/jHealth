@@ -74,4 +74,5 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     kapt "io.realm:realm-annotations-processor:6.1.0"
     implementation 'androidx.preference:preference:1.1.1'
+    implementation 'com.jjoe64:graphview:4.2.2'
 }
