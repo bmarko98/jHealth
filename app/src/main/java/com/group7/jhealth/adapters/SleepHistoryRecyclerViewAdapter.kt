@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.group7.jhealth.R
 import com.group7.jhealth.SIMPLE_DATE_FORMAT_TIME_PATTERN_DAY_MNT
 import com.group7.jhealth.database.SleepTracker
-import kotlinx.android.synthetic.main.recyler_view_layout_weight_history.view.*
+import kotlinx.android.synthetic.main.recycler_view_layout_sleep_history.view.*
 import java.text.SimpleDateFormat
 
-class SleepHistoryRecyclerViewAdapeter():
-    RecyclerView.Adapter<SleepHistoryRecyclerViewAdapeter.ViewHolder>() {
+class SleepHistoryRecyclerViewAdapter():
+    RecyclerView.Adapter<SleepHistoryRecyclerViewAdapter.ViewHolder>() {
         var sleepHistory = arrayListOf<SleepTracker>()
          private val dateFormat = SimpleDateFormat(SIMPLE_DATE_FORMAT_TIME_PATTERN_DAY_MNT)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SleepHistoryRecyclerViewAdapeter.ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recyler_view_layout_weight_history, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SleepHistoryRecyclerViewAdapter.ViewHolder {
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_layout_sleep_history, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -31,7 +31,7 @@ class SleepHistoryRecyclerViewAdapeter():
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(sleepTracker: SleepTracker) {
           //  itemView.dateTextView.text = dateFormat.format(SleepTracker.time)
-            itemView.weightTextView.text = sleepTracker.sleepQuality.toString()
+            itemView.sleepQualityTextView.text = sleepTracker.sleepQuality.toString()
         }
     }
 
