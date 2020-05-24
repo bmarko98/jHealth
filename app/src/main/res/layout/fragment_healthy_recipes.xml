@@ -22,7 +22,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/food"
+        app:srcCompat="@drawable/food1"
         android:clickable="true" />
 
     <ImageView
@@ -37,6 +37,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/food1Button"
-        app:srcCompat="@drawable/salmon" />
+        app:srcCompat="@drawable/food1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

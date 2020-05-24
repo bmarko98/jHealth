@@ -89,14 +89,6 @@
         app:destination="@id/nav_login_form" />
 
     <fragment
-        android:id="@+id/nav_preferences"
-        android:name="com.group7.jhealth.fragments.PreferencesFragment"
-        android:label="@string/settings" />
-    <action
-        android:id="@+id/action_global_navigate_to_preferences_fragment"
-        app:destination="@id/nav_preferences" />
-
-    <fragment
         android:id="@+id/nav_record_entry"
         android:name="com.group7.jhealth.fragments.RecordEntryFragment"
         android:label="@string/diet_monitoring"

@@ -196,9 +196,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         val navController = findNavController(R.id.nav_host_fragment)
 
         when (item.itemId) {
-            R.id.action_settings -> {
-                navController.navigate(R.id.action_global_navigate_to_preferences_fragment)
-            }
             R.id.action_update_user_info -> {
                 navController.navigate(R.id.action_global_navigate_to_login_form_fragment)
             }
