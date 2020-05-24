@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         val alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP, /*calendar.timeInMillis*/ System.currentTimeMillis(),
-            6000/*AlarmManager.INTERVAL_HOUR*/, pendingIntent
+            AlarmManager.INTERVAL_HOUR, pendingIntent
         )
     }
 
