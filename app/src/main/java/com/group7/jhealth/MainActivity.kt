@@ -15,10 +15,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.group7.jhealth.database.UserInfo
-import com.group7.jhealth.database.WaterIntake
-import com.group7.jhealth.database.WeightProgress
-import com.group7.jhealth.database.WorkoutInfo
+import com.group7.jhealth.database.*
+import com.group7.jhealth.dialogs.AddCalorieDialog
 import com.group7.jhealth.dialogs.AddWorkoutDialog
 import com.group7.jhealth.dialogs.DrinkCupSizeDialog
 import com.group7.jhealth.fragments.*
@@ -41,7 +39,8 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
     DrinkCupSizeDialog.DrinkCupSizeDialogListener,
     OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener,
     LoginFormFragment.LoginFormFragmentListener, RecordEntryFragment.RecordEntryFragmentListener,
-    WorkoutDetail.WorkoutDetailFragmentListener, AddWorkoutDialog.AddWorkoutDialogListener {
+    WorkoutDetail.WorkoutDetailFragmentListener, AddWorkoutDialog.AddWorkoutDialogListener,
+    CalorieCounterFragment.CalorieCounterFragmentListener, AddCalorieDialog.AddCalorieDialogListener {
 
     private lateinit var preferences: SharedPreferences
     private lateinit var preferencesEditor: SharedPreferences.Editor
@@ -78,8 +77,12 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
                     navController.navigate(R.id.action_global_navigate_to_home_fragment)
                 }
                 R.id.nav_diet_monitoring -> {
-                    val arraylist: ArrayList<WeightProgress> = ArrayList(realm.where<WeightProgress>().findAll())
-                    val bundle = bundleOf(KEY_BUNDLE_WEIGHT_HISTORY to arraylist)
+                    val arraylistWeightProgress: ArrayList<WeightProgress> = ArrayList(realm.where<WeightProgress>().findAll())
+                    val arraylistCalorieIntake: ArrayList<CalorieIntake> = ArrayList(realm.where<CalorieIntake>().findAll())
+                    val bundle = bundleOf(
+                        KEY_BUNDLE_WEIGHT_HISTORY to arraylistWeightProgress,
+                        KEY_BUNDLE_CALORIE_HISTORY to arraylistCalorieIntake
+                    )
                     navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment, bundle)
                 }
                 R.id.nav_sleep_monitoring -> {
@@ -157,8 +160,12 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
 
         when (clickedItemId) {
             R.id.dietMonitoringTextView -> {
-                val arraylist: ArrayList<WeightProgress> = ArrayList(realm.where<WeightProgress>().findAll())
-                val bundle = bundleOf(KEY_BUNDLE_WEIGHT_HISTORY to arraylist)
+                val arraylistWeightProgress: ArrayList<WeightProgress> = ArrayList(realm.where<WeightProgress>().findAll())
+                val arraylistCalorieIntake: ArrayList<CalorieIntake> = ArrayList(realm.where<CalorieIntake>().findAll())
+                val bundle = bundleOf(
+                    KEY_BUNDLE_WEIGHT_HISTORY to arraylistWeightProgress,
+                    KEY_BUNDLE_CALORIE_HISTORY to arraylistCalorieIntake
+                )
                 navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment, bundle)
             }
             R.id.sleepMonitoringTextView -> {
@@ -408,6 +415,31 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
             weightProgress.numberOfReps = reps
             weightProgress.weightAmount = weight
             realm.commitTransaction()
+
+        } catch (err: Exception) {
+            Toast.makeText(applicationContext, getString(R.string.null_database_notification), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onAddCalorieButtonClicked() {
+        AddCalorieDialog().show(supportFragmentManager, "")
+    }
+
+    override fun addCalorieDialogListener(foodName: String, calorie: Int) {
+        try {
+            realm.beginTransaction()
+            val calorieIntake: CalorieIntake =
+                realm.createObject<CalorieIntake>((realm.where<CalorieIntake>().findAll().size) + 1)
+
+            calorieIntake.time = Calendar.getInstance().time
+            calorieIntake.foodName = foodName
+            calorieIntake.calorie = calorie
+            realm.commitTransaction()
+
+            val arraylist: ArrayList<CalorieIntake> = ArrayList(realm.where<CalorieIntake>().findAll())
+
+            val bundle = bundleOf(KEY_BUNDLE_CALORIE_HISTORY to arraylist)
+            getFragmentAsObject()!!.arguments = bundle
 
         } catch (err: Exception) {
             Toast.makeText(applicationContext, getString(R.string.null_database_notification), Toast.LENGTH_SHORT).show()

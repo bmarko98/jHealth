@@ -48,8 +48,6 @@ class RecordEntryFragment : Fragment() {
         weightHistoryRecyclerView.adapter = weightHistoryRecyclerViewAdapter
         weightHistory?.let { weightHistoryRecyclerViewAdapter.updateData(it) }
 
-
-
         submitRecordButton.setOnClickListener {
             listener.addWeightProgressToDatabase(weightEditText.text.toString().toInt())
             this.weightHistory = requireArguments().getParcelableArrayList(KEY_BUNDLE_WEIGHT_HISTORY)
