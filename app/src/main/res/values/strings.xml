@@ -159,5 +159,6 @@
     <string name="healthy_recipe_food2_salmon_ingredient6">1 tsp sea salt</string>
     <string name="healthy_recipe_food2_salmon_ingredient7">1 tsp of pepper</string>
     <string name="healthy_recipe_food2_salmon_timer">Prep Time: 20 minutes | | Cook Time: 15 minutes </string>
+    <string name="clear">Clear</string>
 
 </resources>

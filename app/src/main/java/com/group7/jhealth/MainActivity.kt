@@ -13,9 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavArgument
 import androidx.navigation.findNavController
-import androidx.navigation.get
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.group7.jhealth.database.*
 import com.group7.jhealth.dialogs.AddCalorieDialog
@@ -24,6 +22,7 @@ import com.group7.jhealth.dialogs.DrinkCupSizeDialog
 import com.group7.jhealth.fragments.*
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import io.realm.RealmResults
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import java.util.*
@@ -267,6 +266,13 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         }
     }
 
+    override fun clearDatabase() {
+        realm.beginTransaction()
+        val rows: RealmResults<WaterIntake> = realm.where(WaterIntake::class.java).findAll()
+        rows.deleteAllFromRealm()
+        realm.commitTransaction()
+    }
+
     /**
      * Chooses the correct cup icon based on user input
      * @param intakeAmount selected amount of water intake
@@ -347,9 +353,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         preferencesEditor = preferences.edit()
         preferencesEditor.putBoolean(KEY_PREF_IS_USR_TAKING_MED, isTakingMed)
         preferencesEditor.apply()
-
-        Log.e("isTakingMed", isTakingMed.toString())
-
         realm.commitTransaction()
     }
 
@@ -476,7 +479,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         for (i in workoutInfo.indices) {
             sumOfWeights += workoutInfo[i].weightAmount
         }
-
         return sumOfWeights / workoutInfo.size.toDouble()
     }
 }

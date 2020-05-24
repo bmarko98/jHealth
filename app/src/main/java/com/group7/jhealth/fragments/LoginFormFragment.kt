@@ -71,18 +71,24 @@ class LoginFormFragment : Fragment() {
         displayUserInfo()
 
         nameEditText.doOnTextChanged { text, _, _, _ ->
-            name = text.toString()
-            updateDatabase()
+            if (text!!.isNotBlank()) {
+                name = text.toString()
+                updateDatabase()
+            }
         }
 
         ageEditText.doOnTextChanged { text, _, _, _ ->
-            age = Integer.parseInt(text.toString())
-            updateDatabase()
+            if (text!!.isNotBlank()) {
+                age = Integer.parseInt(text.toString())
+                updateDatabase()
+            }
         }
 
         weightEditText.doOnTextChanged { text, _, _, _ ->
-            weight = Integer.parseInt(text.toString())
-            updateDatabase()
+            if (text!!.isNotBlank()) {
+                weight = Integer.parseInt(text.toString())
+                updateDatabase()
+            }
         }
 
         genderRadioGroup.setOnCheckedChangeListener { group, checkedId ->
@@ -166,7 +172,7 @@ class LoginFormFragment : Fragment() {
         workoutDurationSeekBar.progress = workoutDuration
         workoutDurationTextView.text = getString(R.string.workout_duration_minutes, workoutDuration)
 
-        medToggleButton.isChecked=isTakingMed
+        medToggleButton.isChecked = isTakingMed
     }
 
     /**
