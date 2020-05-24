@@ -13,10 +13,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavArgument
 import androidx.navigation.findNavController
+import androidx.navigation.get
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.group7.jhealth.database.UserInfo
-import com.group7.jhealth.database.WaterIntake
+import com.group7.jhealth.database.*
+import com.group7.jhealth.dialogs.AddCalorieDialog
+import com.group7.jhealth.dialogs.AddWorkoutDialog
 import com.group7.jhealth.dialogs.DrinkCupSizeDialog
 import com.group7.jhealth.fragments.*
 import io.realm.Realm
@@ -37,7 +40,9 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
     DrinkCupSizeDialog.DrinkCupSizeDialogListener,
     OnIntakeLongClickListener, WaterTrackerFragment.WaterTrackerFragmentListener,
-    LoginFormFragment.LoginFormFragmentListener {
+    LoginFormFragment.LoginFormFragmentListener, RecordEntryFragment.RecordEntryFragmentListener,
+    WorkoutDetail.WorkoutDetailFragmentListener, AddWorkoutDialog.AddWorkoutDialogListener,
+    CalorieCounterFragment.CalorieCounterFragmentListener, AddCalorieDialog.AddCalorieDialogListener {
 
     private lateinit var preferences: SharedPreferences
     private lateinit var preferencesEditor: SharedPreferences.Editor
@@ -57,19 +62,38 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
      * @see #onPostCreate
      */
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         preferences = this.getSharedPreferences(SHARED_PREF_FILE, MODE_PRIVATE)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
 
+        with(navController.graph) {
+            val argument = NavArgument.Builder().setDefaultValue("occcc").build()
+            get(startDestination).addArgument("kk", argument)
+        }
+
+        //File(this.filesDir.path).deleteRecursively()
+        Realm.init(this)
+        val config = RealmConfiguration.Builder().name(REALM_CONFIG_FILE_NAME).build()
+        Realm.setDefaultConfiguration(config)
+        realm = Realm.getDefaultInstance()
+
         navView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
+                    val bundle = bundleOf("eben" to "occcc")
                     navController.navigate(R.id.action_global_navigate_to_home_fragment)
                 }
                 R.id.nav_diet_monitoring -> {
-                    navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment)
+                    val arraylistWeightProgress: ArrayList<WeightProgress> = ArrayList(realm.where<WeightProgress>().findAll())
+                    val arraylistCalorieIntake: ArrayList<CalorieIntake> = ArrayList(realm.where<CalorieIntake>().findAll())
+                    val bundle = bundleOf(
+                        KEY_BUNDLE_WEIGHT_HISTORY to arraylistWeightProgress,
+                        KEY_BUNDLE_CALORIE_HISTORY to arraylistCalorieIntake
+                    )
+                    navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment, bundle)
                 }
                 R.id.nav_sleep_monitoring -> {
                     navController.navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment)
@@ -88,11 +112,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
             }
             true
         }
-        //File(this.filesDir.path).deleteRecursively()
-        Realm.init(this)
-        val config = RealmConfiguration.Builder().name(REALM_CONFIG_FILE_NAME).build()
-        Realm.setDefaultConfiguration(config)
-        realm = Realm.getDefaultInstance()
+
 
         if (preferences.getBoolean(KEY_PREF_IS_FIRST_LAUNCH, true)) {
             preferencesEditor = preferences.edit()
@@ -150,13 +170,19 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         val navController = findNavController(R.id.nav_host_fragment)
 
         when (clickedItemId) {
-            R.id.dietMonitoringTextView -> {
-                navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment)
+            R.id.dietMonitoringButton -> {
+                val arraylistWeightProgress: ArrayList<WeightProgress> = ArrayList(realm.where<WeightProgress>().findAll())
+                val arraylistCalorieIntake: ArrayList<CalorieIntake> = ArrayList(realm.where<CalorieIntake>().findAll())
+                val bundle = bundleOf(
+                    KEY_BUNDLE_WEIGHT_HISTORY to arraylistWeightProgress,
+                    KEY_BUNDLE_CALORIE_HISTORY to arraylistCalorieIntake
+                )
+                navController.navigate(R.id.action_global_navigate_to_diet_monitoring_fragment, bundle)
             }
-            R.id.sleepMonitoringTextView -> {
+            R.id.sleepMonitoringButton -> {
                 navController.navigate(R.id.action_global_navigate_to_sleep_monitoring_fragment)
             }
-            R.id.waterTrackerTextView -> {
+            R.id.waterTrackerButton -> {
                 val arraylist: ArrayList<WaterIntake> = ArrayList(realm.where<WaterIntake>().findAll())
                 val bundle = bundleOf(
                     KEY_BUNDLE_INTAKE_HISTORY to arraylist,
@@ -164,7 +190,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
                 )
                 navController.navigate(R.id.action_global_navigate_to_water_tracker_fragment, bundle)
             }
-            R.id.workoutPlanTextView -> {
+            R.id.workoutPlanButton -> {
                 navController.navigate(R.id.action_global_navigate_to_workout_plan_fragment)
             }
         }
@@ -181,9 +207,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         val navController = findNavController(R.id.nav_host_fragment)
 
         when (item.itemId) {
-            R.id.action_settings -> {
-                navController.navigate(R.id.action_global_navigate_to_preferences_fragment)
-            }
             R.id.action_update_user_info -> {
                 navController.navigate(R.id.action_global_navigate_to_login_form_fragment)
             }
@@ -366,5 +389,74 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
         }
         /*Age is not that important*/
         return consumptionInLitre
+    }
+
+    override fun addWeightProgressToDatabase(weight: Int) {
+        try {
+            realm.beginTransaction()
+            val weightProgress: WeightProgress =
+                realm.createObject<WeightProgress>((realm.where<WeightProgress>().findAll().size) + 1)
+
+            weightProgress.time = Calendar.getInstance().time
+            weightProgress.weightAmount = weight
+            realm.commitTransaction()
+
+            val arraylist: ArrayList<WeightProgress> = ArrayList(realm.where<WeightProgress>().findAll())
+            val bundle = bundleOf(KEY_BUNDLE_WEIGHT_HISTORY to arraylist)
+            getFragmentAsObject()!!.arguments = bundle
+
+        } catch (err: Exception) {
+            Toast.makeText(applicationContext, getString(R.string.null_database_notification), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onAddWorkoutButtonClicked() {
+        AddWorkoutDialog().show(supportFragmentManager, "")
+    }
+
+    override fun addWorkoutDialogListener(reps: Int, weight: Int) {
+        try {
+            realm.beginTransaction()
+            val weightProgress: WorkoutInfo =
+                realm.createObject<WorkoutInfo>((realm.where<WorkoutInfo>().findAll().size) + 1)
+
+            weightProgress.numberOfReps = reps
+            weightProgress.weightAmount = weight
+            realm.commitTransaction()
+
+        } catch (err: Exception) {
+            Toast.makeText(applicationContext, getString(R.string.null_database_notification), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onAddCalorieButtonClicked() {
+        AddCalorieDialog().show(supportFragmentManager, "")
+    }
+
+    override fun addCalorieDialogListener(foodName: String, calorie: Int) {
+        try {
+            realm.beginTransaction()
+            val calorieIntake: CalorieIntake =
+                realm.createObject<CalorieIntake>((realm.where<CalorieIntake>().findAll().size) + 1)
+
+            calorieIntake.time = Calendar.getInstance().time
+            calorieIntake.foodName = foodName
+            calorieIntake.calorie = calorie
+            realm.commitTransaction()
+
+            val arraylist: ArrayList<CalorieIntake> = ArrayList(realm.where<CalorieIntake>().findAll())
+
+            val bundle = bundleOf(KEY_BUNDLE_CALORIE_HISTORY to arraylist)
+            getFragmentAsObject()!!.arguments = bundle
+
+        } catch (err: Exception) {
+            Toast.makeText(applicationContext, getString(R.string.null_database_notification), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun eben()
+    {
+        val bundle = bundleOf("eben" to "occcc")
+        getFragmentAsObject()!!.arguments = bundle
     }
 }

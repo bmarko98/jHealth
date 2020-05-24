@@ -12,13 +12,28 @@
         tools:layout="@layout/fragment_home" />
     <action
         android:id="@+id/action_global_navigate_to_home_fragment"
-        app:destination="@id/nav_home" />
+        app:destination="@id/nav_home">
+    <argument
+        android:name="myArg"
+        app:argType="string"
+        android:defaultValue="oc" />
+    </action>
 
     <fragment
         android:id="@+id/nav_diet_monitoring"
         android:name="com.group7.jhealth.fragments.DietMonitoringFragment"
         android:label="@string/menu_diet_monitoring"
-        tools:layout="@layout/fragment_diet_monitoring" />
+        tools:layout="@layout/fragment_diet_monitoring" >
+        <action
+            android:id="@+id/action_nav_diet_monitoring_to_nav_record_entry"
+            app:destination="@id/nav_record_entry" />
+        <action
+            android:id="@+id/action_nav_diet_monitoring_to_nav_healthy_recipe"
+            app:destination="@id/nav_healthy_recipe" />
+        <action
+            android:id="@+id/action_nav_diet_monitoring_to_nav_calorie_counter"
+            app:destination="@id/nav_calorie_counter" />
+    </fragment>
     <action
         android:id="@+id/action_global_navigate_to_diet_monitoring_fragment"
         app:destination="@id/nav_diet_monitoring" />
@@ -79,29 +94,21 @@
         app:destination="@id/nav_login_form" />
 
     <fragment
-        android:id="@+id/nav_preferences"
-        android:name="com.group7.jhealth.fragments.PreferencesFragment"
-        android:label="@string/settings" />
-    <action
-        android:id="@+id/action_global_navigate_to_preferences_fragment"
-        app:destination="@id/nav_preferences" />
-
-    <fragment
         android:id="@+id/nav_record_entry"
         android:name="com.group7.jhealth.fragments.RecordEntryFragment"
         android:label="@string/diet_monitoring"
         tools:layout="@layout/fragment_record_entry" />
-    <action
-        android:id="@+id/action_global_navigate_to_record_entry_fragment"
-        app:destination="@id/nav_record_entry" />
+
     <fragment
         android:id="@+id/nav_calorie_counter"
         android:name="com.group7.jhealth.fragments.CalorieCounterFragment"
         android:label="@string/diet_monitoring"
         tools:layout="@layout/fragment_calorie_counter" />
-    <action
-        android:id="@+id/action_global_navigate_to_calorie_counter_fragment"
-        app:destination="@id/nav_calorie_counter" />
+    <fragment
+        android:id="@+id/nav_healthy_recipe"
+        android:name="com.group7.jhealth.fragments.HealthyRecipesFragment"
+        android:label="@string/diet_monitoring"
+        tools:layout="@layout/fragment_healthy_recipes" />
     <fragment
         android:id="@+id/nav_abs_frag"
         android:name="com.group7.jhealth.fragments.ABSFragment"

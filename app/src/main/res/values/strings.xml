@@ -131,4 +131,7 @@
     <!--Sleep Monitoring Fragment-->
     <string name="how_was_your_sleep">How was your sleep?</string>
 
+    <string name="number_of_reps">Number of reps</string>
+    <string name="food_name">Food name</string>
+    <string name="calorie">Calorie</string>
 </resources>

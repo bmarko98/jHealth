@@ -27,7 +27,6 @@ interface OnIntakeLongClickListener {
  * @property layoutManager of GridLayout Manager
  * @property listener of WaterTrackerFragmentListener
  * @property intakeHistory initialized to null
- * @property realm instance of Realm
  * @property intakeTarget represent the daily water intake target
  */
 class WaterTrackerFragment : Fragment() {
@@ -36,7 +35,6 @@ class WaterTrackerFragment : Fragment() {
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var listener: WaterTrackerFragmentListener
     private var intakeHistory: ArrayList<WaterIntake>? = null
-    private lateinit var realm: Realm
     private var intakeTarget: Double = 0.0
 
     /**

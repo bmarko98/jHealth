@@ -31,7 +31,7 @@ import java.util.*
 class LoginFormFragment : Fragment() {
 
     @SuppressLint("SimpleDateFormat")
-    private val dateFormat = SimpleDateFormat(SIMPLE_DATE_FORMAT_TIME_PATTERN)
+    private val dateFormat = SimpleDateFormat(SIMPLE_DATE_FORMAT_TIME_PATTERN_HR_MIN)
     private var name = ""
     private var age = 0
     private var gender = "" //empty string means other or, the user skipped the form
