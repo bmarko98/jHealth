@@ -231,10 +231,14 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentListener,
      *@param chosenSize cup size
      */
     override fun drinkCupSizeDialogListener(chosenSize: Int) {
+        try {
+
         realm.beginTransaction()
         val userInfo = realm.where<UserInfo>().findFirst()
         userInfo?.drinkCupSize = chosenSize
-        realm.commitTransaction()
+        realm.commitTransaction()}
+        catch (err:Exception)
+        {err.printStackTrace()}
     }
 
     /**
